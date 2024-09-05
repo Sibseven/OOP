@@ -1,25 +1,28 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
+import java.util.Arrays;
+
+import java.util.Scanner;
 /**
  * class of heapsort, containing functions sort, ShiftDown
+ *
  * @author vadim lavrenenkov
+ *
  * @version 1.0
  */
-public class heapsort {
+public class Heapsort {
     /**
     * reading array from console
-     * @param args-  default param for main
-     */
-    public static void main(String[] args){
+    * @param args -  default param for main
+    */
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         ArrayList<Integer> list = new ArrayList<>();
-        while (in.hasNextInt()){
+        while (in.hasNextInt()) {
             list.add(in.nextInt());
         }
         int[] arr = list.stream().mapToInt(i -> i).toArray();
-        heapsort.sort(arr);
+        Heapsort.sort(arr);
         System.out.println(Arrays.toString(arr));
     }
     /**
@@ -29,21 +32,21 @@ public class heapsort {
      * @param n - number of elements in arr
      * @param now - index of element to shift
      */
-    public static void ShiftDown(int[] arr, int n, int now){
+    public static void shiftdown(int[] arr, int n, int now) {
         int largest = now;
         int left = 2 * now + 1;
         int right = 2 * now + 2;
-        if (left < n && arr[left] > arr[largest]){
+        if (left < n && arr[left] > arr[largest]) {
             largest = left;
         }
-        if (right < n && arr[right] > arr[largest]){
+        if (right < n && arr[right] > arr[largest]) {
             largest = right;
         }
-        if(largest != now){
+        if (largest != now) {
             int temp = arr[now];
             arr[now] = arr[largest];
             arr[largest] = temp;
-            ShiftDown(arr, n, largest);
+            shiftdown(arr, n, largest);
         }
 
 
@@ -55,16 +58,16 @@ public class heapsort {
      * until all elements in their places
     * @param arr - array to be sorted
      */
-    public static void sort(int[] arr){
+    public static void sort(int[] arr) {
         int n = arr.length;
-        for(int i = n / 2 - 1; i >= 0; i--){
-            ShiftDown(arr, n, i);
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            shiftdown(arr, n, i);
         }
         for (int i = n - 1; i >= 0; i--) {
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
-            ShiftDown(arr, i, 0);
+            shiftdown(arr, i, 0);
         }
     }
 }
