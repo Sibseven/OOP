@@ -25,6 +25,7 @@ jacoco {
 
 repositories {
     mavenCentral()
+    google()
 }
 
 dependencies {
