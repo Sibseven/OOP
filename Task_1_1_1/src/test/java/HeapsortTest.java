@@ -43,4 +43,10 @@ public class HeapsortTest {
         Heapsort.sort(toSort);
         assertArrayEquals(toSort, new int[] {1, 3, 5, 6, 7});
     }
+    @Test
+    void checkShiftDown() {
+        int[] toShift = {5, 3, 7};
+        Heapsort.shiftdown(toShift, 3, 0);
+        assertArrayEquals(toShift, new int[]{7, 3, 5});
+    }
 }
