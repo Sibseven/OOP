@@ -1,12 +1,10 @@
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.Arrays;
-
 import java.util.Random;
-
 import java.util.stream.IntStream;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 public class HeapsortTest {
     @Test
     void checkBasic() {
