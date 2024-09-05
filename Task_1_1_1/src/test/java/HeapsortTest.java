@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 
 public class HeapsortTest {
     @Test
+    void checkMain() {
+        Heapsort.main(new String[]{});
+        assert (true == true);
+    }
+    @Test
     void checkBasic() {
         int[] toSort = {5, 8, 9, 6, 7};
         Heapsort.sort(toSort);
