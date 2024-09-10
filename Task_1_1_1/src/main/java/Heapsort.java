@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * class of heapsort, containing functions sort, ShiftDown
+ * class of heapsort, containing functions sort, ShiftDown.
  *
  * @author vadim lavrenenkov
  *
@@ -11,7 +11,8 @@ import java.util.Scanner;
  */
 public class Heapsort {
     /**
-    * reading array from console
+    * reading array from console.
+     *
     * @param args -  default param for main
     */
     public static void main(String[] args) {
@@ -25,8 +26,9 @@ public class Heapsort {
         System.out.println(Arrays.toString(arr));
     }
     /**
-    * shifting smallest element until he`s max
+    * shifting smallest element until he`s max.
     * in his subtree
+     *
      * @param arr - binary heap in array form
      * @param n - number of elements in arr
      * @param now - index of element to shift
@@ -51,10 +53,11 @@ public class Heapsort {
 
     }
     /**
-    * making a binary max heap
+    * making a binary max heap.
     * then taking root from heap
     * and re-heap remaining tree
      * until all elements in their places
+     * 
     * @param arr - array to be sorted
      */
     public static void sort(int[] arr) {
