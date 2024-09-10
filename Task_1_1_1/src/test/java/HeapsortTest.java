@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -9,7 +10,7 @@ public class HeapsortTest {
     @Test
     void checkMain() {
         Heapsort.main(new String[]{});
-        assert (true == true);
+        assertTrue(true);
     }
     @Test
     void checkBasic() {
