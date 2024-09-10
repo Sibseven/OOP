@@ -15,6 +15,7 @@ public class Heapsort {
      *
     * @param args -  default param for main
     */
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         ArrayList<Integer> list = new ArrayList<>();
@@ -33,6 +34,7 @@ public class Heapsort {
      * @param n - number of elements in arr
      * @param now - index of element to shift
      */
+
     public static void shiftdown(int[] arr, int n, int now) {
         int largest = now;
         int left = 2 * now + 1;
@@ -57,9 +59,10 @@ public class Heapsort {
     * then taking root from heap
     * and re-heap remaining tree
      * until all elements in their places
-     * 
+     *
     * @param arr - array to be sorted
      */
+
     public static void sort(int[] arr) {
         int n = arr.length;
         for (int i = n / 2 - 1; i >= 0; i--) {
