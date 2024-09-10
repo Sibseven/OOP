@@ -6,6 +6,13 @@ import java.util.Random;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for Heapsort.java.
+ *
+ *  @author vadim lavrenenkov
+ *
+ *  @version 1.0
+ */
 public class HeapsortTest {
     @Test
     void checkMain() {
@@ -49,7 +56,7 @@ public class HeapsortTest {
         Heapsort.sort(toSort);
         assertArrayEquals(toSort, new int[] {1, 3, 5, 6, 7});
     }
-    
+
     @Test
     void checkShiftDown() {
         int[] toShift = {5, 3, 7};
