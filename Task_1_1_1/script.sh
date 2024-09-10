@@ -1,3 +1,3 @@
-javadoc src/main/java/heapsort.java
-javac src/main/java/heapsort.java
-java  -cp src/main/java/ heapsort
+javadoc src/main/java/Heapsort.java
+javac src/main/java/Heapsort.java
+java  -cp src/main/java/ Heapsort
