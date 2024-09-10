@@ -43,7 +43,13 @@ public class HeapsortTest {
 
     @Test
     void checkLarge() {
-        int[]  randomIntsArray = IntStream.generate(() -> new Random().nextInt(555555)).limit(1000000).toArray();
+        int[] randomIntsArray = new int[1_000_000];
+        Random random = new Random();
+
+        for (int i = 0; i < 1_000_000; i++) {
+            randomIntsArray[i] = random.nextInt(555555);
+        }
+        
         int[]  randomIntsArray2 = randomIntsArray;
         Heapsort.sort(randomIntsArray);
         Arrays.sort(randomIntsArray2);
