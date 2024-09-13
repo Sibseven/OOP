@@ -2,12 +2,31 @@ package nsu.lavrenenkov;
 
 import java.util.Scanner;
 
+/**
+ * Game class, containing round and win logic.
+ *
+ * @author vadim_lavrenenkov
+ *
+ * @version 1.0
+ */
 public class Game {
 
+    /**
+     *Default main.
+     *
+     * @param args - default for main
+     */
     public static void main(String[] args) {
         startGame();
     }
 
+    /**
+     * Method for holding a single round.
+     *
+     * @param round - round number
+     * @param scanner - for user input
+     * @return - true if player won, false if dealer won
+     */
     public static boolean round(int round, Scanner scanner) {
         Hand dealer = new Hand();
         Hand player = new Hand();
@@ -49,7 +68,7 @@ public class Game {
                 System.out.println("Неверный ввод");
                 decision = scanner.nextLine().strip();
             }
-            if (decision.equals("1")){
+            if (decision.equals("1")) {
                 player.takeCard(deck);
 
                 System.out.println("Вы открыли карту " + player.cards.getLast().toString());
@@ -61,11 +80,11 @@ public class Game {
                 System.out.println("Карты дилера:");
                 System.out.println("["+dealer.cards.getFirst().toString() + ", <закрытая карта>]");
 
-                if(sym > 21){
+                if(sym > 21) {
                     return false;
                 }
             }
-            if (decision.equals("0")){
+            if (decision.equals("0")) {
                 break;
             }
         }
@@ -84,7 +103,7 @@ public class Game {
             return false;
         }
 
-        while (sym < 17){
+        while (sym < 17) {
             dealer.takeCard(deck);
             System.out.println("Дилер открывает карту " + dealer.cards.getLast().toString());
             sym = dealer.checkValues();
@@ -95,13 +114,18 @@ public class Game {
             System.out.println("Карты Дилера");
             System.out.println(dealer.cards.toString() + " => " + sym);
 
-            if (sym > 21){
+            if (sym > 21) {
                 return true;
             }
         }
 
         return player.checkValues() >= dealer.checkValues();
     }
+
+    /**
+     * Method for holding a single game(several rounds).
+     *
+     */
 
     public static void startGame() {
         int roundCounter = 1;
