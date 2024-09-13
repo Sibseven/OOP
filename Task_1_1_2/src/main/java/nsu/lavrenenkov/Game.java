@@ -76,7 +76,7 @@ public class Game {
                 System.out.println(player.cards.toString() + " => " + sym);
 
                 System.out.println("Карты дилера:");
-                System.out.println("["+dealer.cards.getFirst().toString() + ", <закрытая карта>]");
+                System.out.println("[" + dealer.cards.getFirst().toString() + ", <закрытая карта>]");
 
                 if (sym > 21) {
                     return false;
@@ -127,24 +127,23 @@ public class Game {
 
     public static void startGame() {
         int roundCounter = 1;
-        int player_win = 0;
-        int dealer_win = 0;
+        int playerWin = 0;
+        int dealerWin = 0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Добро пожаловать в блэкджек!");
-        while (player_win != 3 && dealer_win != 3) {
+        while (playerWin != 3 && dealerWin != 3) {
             boolean check = round(roundCounter, scanner);
             if (check) {
-                player_win += 1;
-                System.out.println("Вы выиграли! Счет " + player_win + ":" + dealer_win +"\n\n");
-
+                playerWin += 1;
+                System.out.println("Вы выиграли! Счет " + playerWin + ":" + dealerWin + "\n\n");
             }
             else {
-                dealer_win += 1;
-                System.out.println("Вы проиграли. Счет " + player_win + ":" + dealer_win+ "\n\n");
+                dealerWin += 1;
+                System.out.println("Вы проиграли. Счет " + playerWin + ":" + dealerWin + "\n\n");
             }
             roundCounter += 1;
         }
-        System.out.println("Финальный счет " + player_win + ":" + dealer_win);
+        System.out.println("Финальный счет " + playerWin + ":" + dealerWin);
 
     }
 }
