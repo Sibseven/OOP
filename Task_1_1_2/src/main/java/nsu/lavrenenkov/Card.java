@@ -17,8 +17,11 @@ public class Card {
 
     /**
      * Card builder.
+     *
      * @param rang - rang of card.
+     *
      * @param suit - suit of card.
+     *
      * @param value - blackjack value of card.
      */
     public Card(String rang, String suit, int value) {
@@ -28,7 +31,8 @@ public class Card {
     }
 
     /**
-     * Redefinition of toString method of card
+     * Redefinition of toString method of card.
+     *
      * @return formatted string
      */
     @Override

@@ -39,12 +39,12 @@ public class Hand {
      */
     public int checkValues() {
         int sym = 0;
-        for (Card card: cards) {
+        for (Card card : cards) {
             sym += card.value;
         }
         if (sym > 21) {
-            for (Card ace: cards) {
-                if(Objects.equals(ace.rang, "Туз")) {
+            for (Card ace : cards) {
+                if (Objects.equals(ace.rang, "Туз")) {
                     ace.value = 1;
                     sym -= 10;
                 }

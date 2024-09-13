@@ -2,6 +2,9 @@ package nsu.lavrenenkov;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class for testing deck class.
+ */
 public class DeckTest {
     @Test
     void checkBuilder() {

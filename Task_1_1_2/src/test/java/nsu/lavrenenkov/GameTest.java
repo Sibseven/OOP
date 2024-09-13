@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 
+/**
+ * Class for testing Game class.
+ */
 public class GameTest {
 
     @Test

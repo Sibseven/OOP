@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class for testing card class.
+ */
 public class CardTest {
     @Test
     void checkBuilder() {

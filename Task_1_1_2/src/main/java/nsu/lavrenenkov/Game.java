@@ -28,20 +28,20 @@ public class Game {
      * @return - true if player won, false if dealer won
      */
     public static boolean round(int round, Scanner scanner) {
-        Hand dealer = new Hand();
-        Hand player = new Hand();
-
         Deck deck = new Deck();
         deck.shuffle();
 
+        Hand dealer = new Hand();
+        dealer.takeCard(deck);
+        dealer.takeCard(deck);
+
+
+        Hand player = new Hand();
+        player.takeCard(deck);
+        player.takeCard(deck);
+
 
         System.out.println("Раунд " + round);
-
-        dealer.takeCard(deck);
-        dealer.takeCard(deck);
-
-        player.takeCard(deck);
-        player.takeCard(deck);
 
         System.out.println("Дилер раздал карты");
 
@@ -49,11 +49,9 @@ public class Game {
         System.out.println(player.cards.toString() + " => " + player.checkValues());
 
         System.out.println("Карты дилера:");
-        System.out.println("["+dealer.cards.getFirst().toString() + ", <закрытая карта>]");
+        System.out.println("[" + dealer.cards.getFirst().toString() + ", <закрытая карта>]");
 
-
-
-        if(player.checkValues() == 21) {
+        if (player.checkValues() == 21) {
             return true;
         }
         System.out.println("Ваш ход \n -------");
@@ -80,7 +78,7 @@ public class Game {
                 System.out.println("Карты дилера:");
                 System.out.println("["+dealer.cards.getFirst().toString() + ", <закрытая карта>]");
 
-                if(sym > 21) {
+                if (sym > 21) {
                     return false;
                 }
             }
@@ -99,7 +97,7 @@ public class Game {
         System.out.println("Карты Дилера");
         System.out.println(dealer.cards.toString() + " => " + sym);
 
-        if(sym == 21){
+        if (sym == 21) {
             return false;
         }
 
