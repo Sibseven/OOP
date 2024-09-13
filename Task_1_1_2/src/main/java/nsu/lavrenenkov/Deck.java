@@ -48,7 +48,7 @@ public class Deck {
         if (cardList.isEmpty()) {
             return null;
         }
-        return (cardList.removeLast());
+        return (cardList.remove(cardList.size() - 1));
     }
 
 

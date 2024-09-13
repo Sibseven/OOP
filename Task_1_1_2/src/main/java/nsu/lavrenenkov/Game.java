@@ -49,7 +49,7 @@ public class Game {
         System.out.println(player.cards.toString() + " => " + player.checkValues());
 
         System.out.println("Карты дилера:");
-        System.out.println("[" + dealer.cards.getFirst().toString() + ", <закрытая карта>]");
+        System.out.println("[" + dealer.cards.get(0).toString() + ", <закрытая карта>]");
 
         if (player.checkValues() == 21) {
             return true;
@@ -69,7 +69,7 @@ public class Game {
             if (decision.equals("1")) {
                 player.takeCard(deck);
 
-                System.out.println("Вы открыли карту " + player.cards.getLast().toString());
+                System.out.println("Вы открыли карту " + player.cards.get(player.cards.size() - 1).toString());
                 int sym = player.checkValues();
 
                 System.out.println("Ваши карты");
@@ -77,7 +77,7 @@ public class Game {
 
                 System.out.println("Карты дилера:");
                 System.out.println("[" +
-                                   dealer.cards.getFirst().toString() +
+                                   dealer.cards.get(0).toString() +
                                    ", <закрытая карта>]");
 
                 if (sym > 21) {
@@ -90,7 +90,7 @@ public class Game {
         }
 
         System.out.println("Ход дилера \n -------");
-        System.out.println("Дилер открывает закрытую карту " + dealer.cards.getLast().toString());
+        System.out.println("Дилер открывает закрытую карту " + dealer.cards.get(dealer.cards.size() - 1).toString());
 
         System.out.println("Ваши карты");
         System.out.println(player.cards.toString() + " => " + player.checkValues());
@@ -105,7 +105,7 @@ public class Game {
 
         while (sym < 17) {
             dealer.takeCard(deck);
-            System.out.println("Дилер открывает карту " + dealer.cards.getLast().toString());
+            System.out.println("Дилер открывает карту " + dealer.cards.get(dealer.cards.size() - 1).toString());
             sym = dealer.checkValues();
 
             System.out.println("Ваши карты");
