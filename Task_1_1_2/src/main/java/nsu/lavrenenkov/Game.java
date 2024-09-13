@@ -76,7 +76,9 @@ public class Game {
                 System.out.println(player.cards.toString() + " => " + sym);
 
                 System.out.println("Карты дилера:");
-                System.out.println("[" + dealer.cards.getFirst().toString() + ", <закрытая карта>]");
+                System.out.println("[" +
+                                   dealer.cards.getFirst().toString() +
+                                   ", <закрытая карта>]");
 
                 if (sym > 21) {
                     return false;

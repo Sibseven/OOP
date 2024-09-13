@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Class for testing Game class.
  */
+
 public class GameTest {
 
     @Test

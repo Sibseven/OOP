@@ -20,7 +20,7 @@ public class Deck {
     public Deck() {
         cardList = new ArrayList<>();
         String[] rangs = {"2", "3", "4", "5", "6", "7", "8", "9", "10",
-                           "Валет", "Дама", "Король", "Туз"};
+                          "Валет", "Дама", "Король", "Туз"};
         String[] suits = {"Пики", "Трефы", "Черви", "Бубны"};
         int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
         for (String suit : suits) {
