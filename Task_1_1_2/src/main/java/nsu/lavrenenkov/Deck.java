@@ -1,5 +1,7 @@
 package nsu.lavrenenkov;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Deck {
-    List<Card> cardList;
+    private List<Card> cardList;
 
     /**
      * Modified builder that fill deck on creation.
@@ -40,16 +42,25 @@ public class Deck {
     }
 
     /**
-     * Method for deailng card by removing it from deck.
+     * Method for dealing card by removing it from deck.
      *
      * @return card that removed from the deck
      */
-    public Card deal() {
+
+    public @Nullable Card deal() {
         if (cardList.isEmpty()) {
             return null;
         }
         return (cardList.remove(cardList.size() - 1));
     }
 
+    /**
+     * getter for deck size.
+     *
+     * @return size of a deck
+     */
+    public int getSize(){
+        return this.cardList.size();
+    }
 
 }

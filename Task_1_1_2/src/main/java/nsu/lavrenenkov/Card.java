@@ -11,9 +11,9 @@ package nsu.lavrenenkov;
  *
  */
 public class Card {
-    String rang;
-    String suit;
-    int value;
+    private final String rang;
+    private final String suit;
+    private int value;
 
     /**
      * Card builder.
@@ -38,5 +38,43 @@ public class Card {
     @Override
     public String toString() {
         return rang + " " +  suit  + "(" + value + ")";
+    }
+
+    /**
+     * getter for rang.
+     *
+     * @return rang of a card
+     */
+    public String getRang() {
+        return rang;
+    }
+
+    /**
+     * getter for value.
+     *
+     * @return value of a card
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * getter for suit.
+     *
+     * @return suit of a card
+     */
+    public String getSuit() {
+        return suit;
+    }
+
+    /**
+     * Setter for value of card.
+     *
+     * @param i - value of card (1 - 11)
+     */
+    public void setValue(int i) {
+        if(i >= 1 && i <= 11) {
+            this.value = i;
+        }
     }
 }

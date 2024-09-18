@@ -1,5 +1,8 @@
 package nsu.lavrenenkov;
 
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,6 +18,6 @@ public class HandTest {
         hand.takeCard(deck);
         hand.takeCard(deck);
 
-        assert hand.cards.size() == 2;
+        assertTrue(hand.getSize() == 2);
     }
 }

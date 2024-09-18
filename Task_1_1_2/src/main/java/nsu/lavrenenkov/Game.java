@@ -46,10 +46,10 @@ public class Game {
         System.out.println("Дилер раздал карты");
 
         System.out.println("Ваши карты");
-        System.out.println(player.cards.toString() + " => " + player.checkValues());
+        System.out.println(player + " => " + player.checkValues());
 
         System.out.println("Карты дилера:");
-        System.out.println("[" + dealer.cards.get(0).toString() + ", <закрытая карта>]");
+        System.out.println("[" + dealer.getNCard(0) + ", <закрытая карта>]");
 
         if (player.checkValues() == 21) {
             return true;
@@ -70,15 +70,15 @@ public class Game {
                 player.takeCard(deck);
 
                 System.out.println("Вы открыли карту "
-                                   + player.cards.get(player.cards.size() - 1).toString());
+                                   + player.getLastCard());
                 int sym = player.checkValues();
 
                 System.out.println("Ваши карты");
-                System.out.println(player.cards.toString() + " => " + sym);
+                System.out.println(player + " => " + sym);
 
                 System.out.println("Карты дилера:");
                 System.out.println("["
-                                   + dealer.cards.get(0).toString()
+                                   + dealer.getNCard(0)
                                    + ", <закрытая карта>]");
 
                 if (sym > 21) {
@@ -92,14 +92,14 @@ public class Game {
 
         System.out.println("Ход дилера \n -------");
         System.out.println("Дилер открывает закрытую карту "
-                           + dealer.cards.get(dealer.cards.size() - 1).toString());
+                           + dealer.getLastCard());
 
         System.out.println("Ваши карты");
-        System.out.println(player.cards.toString() + " => " + player.checkValues());
+        System.out.println(player + " => " + player.checkValues());
 
         int sym = dealer.checkValues();
         System.out.println("Карты Дилера");
-        System.out.println(dealer.cards.toString() + " => " + sym);
+        System.out.println(dealer + " => " + sym);
 
         if (sym == 21) {
             return false;
@@ -108,14 +108,14 @@ public class Game {
         while (sym < 17) {
             dealer.takeCard(deck);
             System.out.println("Дилер открывает карту "
-                               + dealer.cards.get(dealer.cards.size() - 1).toString());
+                               + dealer.getLastCard());
             sym = dealer.checkValues();
 
             System.out.println("Ваши карты");
-            System.out.println(player.cards.toString() + " => " + player.checkValues());
+            System.out.println(player + " => " + player.checkValues());
 
             System.out.println("Карты Дилера");
-            System.out.println(dealer.cards.toString() + " => " + sym);
+            System.out.println(dealer + " => " + sym);
 
             if (sym > 21) {
                 return true;

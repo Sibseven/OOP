@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 
 public class Hand {
-    ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 
     /**
      * Builder for hand.
@@ -40,12 +40,12 @@ public class Hand {
     public int checkValues() {
         int sym = 0;
         for (Card card : cards) {
-            sym += card.value;
+            sym += card.getValue();
         }
         if (sym > 21) {
             for (Card ace : cards) {
-                if (Objects.equals(ace.rang, "Туз")) {
-                    ace.value = 1;
+                if (Objects.equals(ace.getRang(), "Туз")) {
+                    ace.setValue(1);
                     sym -= 10;
                 }
             }
@@ -53,4 +53,45 @@ public class Hand {
         return sym;
     }
 
+    /**
+     * Redefinition of toString method of hand.
+     *
+     * @return formatted list of cards
+     */
+    @Override
+    public String toString(){
+        return this.cards.toString();
+    }
+
+    /**
+     * method for getting N`s card as string.
+     *
+     * @param i - number of card in hand
+     *
+     * @return N card in String
+     */
+    public String getNCard(int i){
+        if(i >= 0 && i < cards.size()){
+            return cards.get(i).toString();
+        }
+        return "";
+    }
+
+    /**
+     * Method for getting last card from hand.
+     *
+     * @return last card as string
+     */
+    public String getLastCard(){
+        return cards.get(cards.size() - 1).toString();
+    }
+
+    /**
+     * getter for hand size.
+     *
+     * @return size of hand
+     */
+    public int getSize() {
+        return cards.size();
+    }
 }

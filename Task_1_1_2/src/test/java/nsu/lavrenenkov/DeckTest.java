@@ -1,5 +1,8 @@
 package nsu.lavrenenkov;
 
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -9,14 +12,14 @@ public class DeckTest {
     @Test
     void checkBuilder() {
         Deck deck = new Deck();
-        assert deck.cardList.size() == 52;
+        assertTrue (deck.getSize() == 52);
     }
 
     @Test
     void checkDeal() {
         Deck deck = new Deck();
         Card card = deck.deal();
-        assert deck.cardList.size() == 51;
+        assertTrue (deck.getSize() == 51);
     }
 
     @Test

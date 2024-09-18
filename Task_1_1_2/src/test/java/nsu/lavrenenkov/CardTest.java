@@ -11,7 +11,7 @@ public class CardTest {
     @Test
     void checkBuilder() {
         Card card = new Card("туз", "треф", 125);
-        assertTrue(card.value == 125 && card.rang.equals("туз") && card.suit.equals("треф"));
+        assertTrue(card.getValue() == 125 && card.getRang().equals("туз") && card.getSuit().equals("треф"));
     }
 
     @Test
