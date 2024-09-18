@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -185,10 +185,38 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastCard()">getLastCard</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Method for getting last card from hand.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNCard(int)">getNCard</a></span>&#8203;(int&nbsp;i)</code></th>
+<td class="colLast">
+<div class="block">method for getting N`s card as string.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSize()">getSize</a></span>()</code></th>
+<td class="colLast">
+<div class="block">getter for hand size.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#takeCard(nsu.lavrenenkov.Deck)">takeCard</a></span>&#8203;(<a href="Deck.html" title="class in nsu.lavrenenkov">Deck</a>&nbsp;deck)</code></th>
 <td class="colLast">
 <div class="block">Method for taking one card from the deck.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Redefinition of toString method of hand.</div>
 </td>
 </tr>
 </table>
@@ -197,7 +225,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -252,7 +280,7 @@ extends java.lang.Object</pre>
 <a id="checkValues()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>checkValues</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;checkValues()</pre>
@@ -261,6 +289,66 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>sum of hand`s cards value</dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<div class="block">Redefinition of toString method of hand.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>formatted list of cards</dd>
+</dl>
+</li>
+</ul>
+<a id="getNCard(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNCard</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getNCard&#8203;(int&nbsp;i)</pre>
+<div class="block">method for getting N`s card as string.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>i</code> - - number of card in hand</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>N card in String</dd>
+</dl>
+</li>
+</ul>
+<a id="getLastCard()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastCard</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getLastCard()</pre>
+<div class="block">Method for getting last card from hand.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>last card as string</dd>
+</dl>
+</li>
+</ul>
+<a id="getSize()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getSize</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getSize()</pre>
+<div class="block">getter for hand size.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>size of hand</dd>
 </dl>
 </li>
 </ul>

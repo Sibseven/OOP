@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -177,13 +177,20 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="Card.html" title="class in nsu.lavrenenkov">Card</a></code></td>
+<td class="colFirst"><code>@Nullable <a href="Card.html" title="class in nsu.lavrenenkov">Card</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deal()">deal</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Method for deailng card by removing it from deck.</div>
+<div class="block">Method for dealing card by removing it from deck.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSize()">getSize</a></span>()</code></th>
+<td class="colLast">
+<div class="block">getter for deck size.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shuffle()">shuffle</a></span>()</code></th>
 <td class="colLast">
@@ -247,14 +254,29 @@ extends java.lang.Object</pre>
 <a id="deal()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deal</h4>
-<pre class="methodSignature">public&nbsp;<a href="Card.html" title="class in nsu.lavrenenkov">Card</a>&nbsp;deal()</pre>
-<div class="block">Method for deailng card by removing it from deck.</div>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Card.html" title="class in nsu.lavrenenkov">Card</a>&nbsp;deal()</pre>
+<div class="block">Method for dealing card by removing it from deck.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>card that removed from the deck</dd>
+</dl>
+</li>
+</ul>
+<a id="getSize()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getSize</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getSize()</pre>
+<div class="block">getter for deck size.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>size of a deck</dd>
 </dl>
 </li>
 </ul>
