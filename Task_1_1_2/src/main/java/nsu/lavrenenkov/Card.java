@@ -73,7 +73,7 @@ public class Card {
      * @param i - value of card (1 - 11)
      */
     public void setValue(int i) {
-        if(i >= 1 && i <= 11) {
+        if (i >= 1 && i <= 11) {
             this.value = i;
         }
     }

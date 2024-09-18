@@ -12,14 +12,14 @@ public class DeckTest {
     @Test
     void checkBuilder() {
         Deck deck = new Deck();
-        assertTrue (deck.getSize() == 52);
+        assertTrue(deck.getSize() == 52);
     }
 
     @Test
     void checkDeal() {
         Deck deck = new Deck();
         Card card = deck.deal();
-        assertTrue (deck.getSize() == 51);
+        assertTrue(deck.getSize() == 51);
     }
 
     @Test

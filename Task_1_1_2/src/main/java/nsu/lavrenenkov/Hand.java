@@ -59,7 +59,7 @@ public class Hand {
      * @return formatted list of cards
      */
     @Override
-    public String toString(){
+    public String toString() {
         return this.cards.toString();
     }
 
@@ -70,8 +70,8 @@ public class Hand {
      *
      * @return N card in String
      */
-    public String getNCard(int i){
-        if(i >= 0 && i < cards.size()){
+    public String getNcard(int i) {
+        if (i >= 0 && i < cards.size()) {
             return cards.get(i).toString();
         }
         return "";
@@ -82,7 +82,7 @@ public class Hand {
      *
      * @return last card as string
      */
-    public String getLastCard(){
+    public String getLastCard() {
         return cards.get(cards.size() - 1).toString();
     }
 

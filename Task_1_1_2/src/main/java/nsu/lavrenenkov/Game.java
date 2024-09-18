@@ -49,7 +49,7 @@ public class Game {
         System.out.println(player + " => " + player.checkValues());
 
         System.out.println("Карты дилера:");
-        System.out.println("[" + dealer.getNCard(0) + ", <закрытая карта>]");
+        System.out.println("[" + dealer.getNcard(0) + ", <закрытая карта>]");
 
         if (player.checkValues() == 21) {
             return true;
@@ -78,7 +78,7 @@ public class Game {
 
                 System.out.println("Карты дилера:");
                 System.out.println("["
-                                   + dealer.getNCard(0)
+                                   + dealer.getNcard(0)
                                    + ", <закрытая карта>]");
 
                 if (sym > 21) {

@@ -1,10 +1,11 @@
 package nsu.lavrenenkov;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
+
+
 
 /**
  * Deck class.
@@ -59,7 +60,7 @@ public class Deck {
      *
      * @return size of a deck
      */
-    public int getSize(){
+    public int getSize() {
         return this.cardList.size();
     }
 
