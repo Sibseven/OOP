@@ -8,6 +8,7 @@ public class Parser {
 
     /**
      * Method to determine if string a number.
+     *
      * @param str - string to check
      *
      * @return true/false
@@ -47,7 +48,7 @@ public class Parser {
         int countClosed = 0;
         int rightPos = 0;
 
-        for(int i = 0; i < in.length(); i++) {
+        for (int i = 0; i < in.length(); i++) {
             char c = in.charAt(i);
             if (c == '(') {
                 countOpen++;
@@ -61,7 +62,7 @@ public class Parser {
         }
 
         left = in.substring(1, rightPos);
-        right = in.substring(rightPos+1, in.length() - 1);
+        right = in.substring(rightPos + 1, in.length() - 1);
 
         if (oper == '+') {
             return new Add(parseExpression(left), parseExpression(right));

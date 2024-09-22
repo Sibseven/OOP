@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class VariableTest {
 
     @Test
-    public void checkEval () {
+    public void checkEval() {
         Variable var1 = new Variable("x");
         Variable var2 = new Variable("y");
 
@@ -19,10 +19,11 @@ public class VariableTest {
     }
 
     @Test
-    public void checkDerivative () {
+    public void checkDerivative() {
         Variable var1 = new Variable("x");
         Variable var2 = new Variable("y");
 
         assertEquals(var1.derivative("x").toString(), "1.0");
-        assertEquals(var2.derivative("x").toString(), "0.0");    }
+        assertEquals(var2.derivative("x").toString(), "0.0");
+    }
 }

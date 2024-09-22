@@ -4,10 +4,11 @@ package nsu.lavrenenkov;
  * class for numbers.
  * contains one field of double(value of number)
  */
-public class Number extends Expression{
+public class Number extends Expression {
     final double value;
 
     /**
+     *Builder.
      *
      * @param value - value of number
      */

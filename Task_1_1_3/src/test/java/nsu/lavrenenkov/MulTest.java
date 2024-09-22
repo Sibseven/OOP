@@ -12,6 +12,6 @@ public class MulTest {
     @Test
     public void checkMul() {
         Mul mul = new Mul(new nsu.lavrenenkov.Number(5), new nsu.lavrenenkov.Number(4));
-        assertTrue (mul.eval(" ") == 20.0);
+        assertTrue(mul.eval(" ") == 20.0);
     }
 }

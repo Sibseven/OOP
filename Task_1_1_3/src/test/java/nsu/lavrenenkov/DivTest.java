@@ -1,6 +1,7 @@
 package nsu.lavrenenkov;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class DivTest {
     @Test
     public void checkEval() {
         Div div = new Div(new nsu.lavrenenkov.Number(20), new nsu.lavrenenkov.Number(4));
-        assertTrue (div.eval(" ") == 5.0);
+        assertEquals(div.eval(" "), 5.0);
     }
 
     @Test

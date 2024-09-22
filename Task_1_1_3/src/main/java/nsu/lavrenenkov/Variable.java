@@ -19,7 +19,7 @@ public class Variable extends Expression {
     }
 
     /**
-     * Method for calculating derivative
+     * Method for calculating derivative.
      *
      * @param variable - variable to differentiate by
      *
