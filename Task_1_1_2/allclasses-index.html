@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":2,"i1":4,"i2":4,"i3":2,"i4":2,"i5":2};
+var tabs = {65535:["t0","All Classes"],2:["t2","Class Summary"],4:["t3","Enum Summary"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "./";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -98,7 +104,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Enum Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
@@ -110,18 +116,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><a href="nsu/lavrenenkov/Card.Rank.html" title="enum in nsu.lavrenenkov">Card.Rank</a></td>
+<th class="colLast" scope="row">
+<div class="block">enum for card Rank.</div>
+</th>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><a href="nsu/lavrenenkov/Card.Suit.html" title="enum in nsu.lavrenenkov">Card.Suit</a></td>
+<th class="colLast" scope="row">
+<div class="block">Enum for card suit.</div>
+</th>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><a href="nsu/lavrenenkov/Deck.html" title="class in nsu.lavrenenkov">Deck</a></td>
 <th class="colLast" scope="row">
 <div class="block">Deck class.</div>
 </th>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><a href="nsu/lavrenenkov/Game.html" title="class in nsu.lavrenenkov">Game</a></td>
 <th class="colLast" scope="row">
 <div class="block">Game class, containing round and win logic.</div>
 </th>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><a href="nsu/lavrenenkov/Hand.html" title="class in nsu.lavrenenkov">Hand</a></td>
 <th class="colLast" scope="row">
 <div class="block">Hand class.</div>
