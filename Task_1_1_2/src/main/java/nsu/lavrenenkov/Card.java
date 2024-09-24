@@ -2,7 +2,7 @@ package nsu.lavrenenkov;
 
 /**
  * Class for storing single card.
- * Contains 2 strings for rang and suit of card
+ * Contains 2 strings for rank and suit of card
  * And one int to determine blackjack value of a card.
  *
  *  @author vadim_lavrenenkov
@@ -11,23 +11,70 @@ package nsu.lavrenenkov;
  *
  */
 public class Card {
-    private final String rang;
+    public static enum Rank {
+        TWO("2", 2),
+        THREE("3", 3),
+        FOUR("4", 4),
+        FIVE("5", 5),
+        SIX("6", 6),
+        SEVEN("7", 7),
+        EIGHT("8", 8),
+        NINE("9", 9),
+        TEN("10", 10),
+        JACK("Валет", 10),
+        QUEEN("Дама", 10),
+        KING("Король", 10),
+        ACE("Туз", 11);
+
+        private final String rank;
+        private final int value;
+        Rank(String rank, int value) {
+            this.rank = rank;
+            this.value = value;
+        }
+
+        public String getRank() {
+            return this.rank;
+        }
+        public int getValue() {
+            return this.value;
+        }
+
+    }
+
+    public static enum Suit {
+        Diamonds("Бубны"),
+        Hearts("Черви"),
+        Spades("Пики"),
+        Clubs("Трефы");
+
+        private final String value;
+
+        Suit(String number) {
+            this.value = number;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+    }
+    private final String rank;
     private final String suit;
     private int value;
 
     /**
      * Card builder.
      *
-     * @param rang - rang of card.
+     * @param rank - rank of card.
      *
      * @param suit - suit of card.
      *
      * @param value - blackjack value of card.
      */
-    public Card(String rang, String suit, int value) {
-        this.rang = rang;
-        this.suit = suit;
-        this.value = value;
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank.getRank();
+        this.suit = suit.getValue();
+        this.value = rank.getValue();
     }
 
     /**
@@ -37,16 +84,16 @@ public class Card {
      */
     @Override
     public String toString() {
-        return rang + " " +  suit  + "(" + value + ")";
+        return rank + " " +  suit  + "(" + value + ")";
     }
 
     /**
-     * getter for rang.
+     * getter for rank.
      *
-     * @return rang of a card
+     * @return rank of a card
      */
-    public String getRang() {
-        return rang;
+    public String getRank() {
+        return rank;
     }
 
     /**
@@ -75,6 +122,8 @@ public class Card {
     public void setValue(int i) {
         if (i >= 1 && i <= 11) {
             this.value = i;
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 }

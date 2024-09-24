@@ -44,7 +44,7 @@ public class Hand {
         }
         if (sym > 21) {
             for (Card ace : cards) {
-                if (Objects.equals(ace.getRang(), "Туз")) {
+                if (Objects.equals(ace.getRank(), "Туз")) {
                     ace.setValue(1);
                     sym -= 10;
                 }
