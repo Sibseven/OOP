@@ -12,7 +12,7 @@ public class GameTest {
 
     @Test
     void checkStartGame() {
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             String input = "1\n 0\n 0\n 0\n 0\n 0\n";
             System.setIn(new ByteArrayInputStream(input.getBytes()));
             Game.main(new String[]{});
