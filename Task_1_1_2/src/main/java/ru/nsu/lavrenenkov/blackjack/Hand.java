@@ -1,6 +1,7 @@
-package nsu.lavrenenkov;
+package ru.nsu.lavrenenkov.blackjack;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Objects;
  */
 
 public class Hand {
-    private ArrayList<Card> cards;
+    private final List<Card> cards;
 
     /**
      * Builder for hand.
@@ -44,7 +45,7 @@ public class Hand {
         }
         if (sym > 21) {
             for (Card ace : cards) {
-                if (Objects.equals(ace.getRank(), "Туз")) {
+                if (Objects.equals(ace.getRank(), "Туз") && ace.getValue() == 11) {
                     ace.setValue(1);
                     sym -= 10;
                 }
@@ -68,7 +69,7 @@ public class Hand {
      *
      * @param i - number of card in hand
      *
-     * @return N card in String
+     * @return N card in String, or empty string if no such card
      */
     public String getNcard(int i) {
         if (i >= 0 && i < cards.size()) {

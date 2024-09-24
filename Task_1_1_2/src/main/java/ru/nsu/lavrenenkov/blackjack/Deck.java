@@ -1,4 +1,4 @@
-package nsu.lavrenenkov;
+package ru.nsu.lavrenenkov.blackjack;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  * @version 1.0
  */
 public class Deck {
-    private List<Card> cardList;
+    private final List<Card> cardList;
 
     /**
      * Modified builder that fill deck on creation.
@@ -23,10 +23,8 @@ public class Deck {
     public Deck() {
         cardList = new ArrayList<>();
         for (Card.Suit suit : Card.Suit.values()) {
-            int i = 0;
             for (Card.Rank rank : Card.Rank.values()) {
                 cardList.add(new Card(rank, suit));
-                i++;
             }
         }
     }

@@ -1,4 +1,4 @@
-package nsu.lavrenenkov;
+package ru.nsu.lavrenenkov.blackjack;
 
 /**
  * Class for storing single card.
