@@ -67,8 +67,8 @@ public class Card {
         }
     }
 
-    private final String rank;
-    private final String suit;
+    private final Rank rank;
+    private final Suit suit;
     private int value;
 
     /**
@@ -80,8 +80,8 @@ public class Card {
      *
      */
     public Card(Rank rank, Suit suit) {
-        this.rank = rank.getRank();
-        this.suit = suit.getValue();
+        this.rank = rank;
+        this.suit = suit;
         this.value = rank.getValue();
     }
 
@@ -101,7 +101,7 @@ public class Card {
      * @return rank of a card
      */
     public String getRank() {
-        return rank;
+        return rank.getRank();
     }
 
     /**
@@ -119,7 +119,7 @@ public class Card {
      * @return suit of a card
      */
     public String getSuit() {
-        return suit;
+        return suit.getValue();
     }
 
     /**
