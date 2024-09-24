@@ -92,7 +92,7 @@ public class Card {
      */
     @Override
     public String toString() {
-        return rank + " " +  suit  + "(" + value + ")";
+        return rank.getRank() + " " +  suit.getValue()  + "(" + value + ")";
     }
 
     /**
