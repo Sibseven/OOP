@@ -11,6 +11,9 @@ package nsu.lavrenenkov;
  *
  */
 public class Card {
+    /**
+     * enum for card Rank.
+     */
     public static enum Rank {
         TWO("2", 2),
         THREE("3", 3),
@@ -28,6 +31,7 @@ public class Card {
 
         private final String rank;
         private final int value;
+
         Rank(String rank, int value) {
             this.rank = rank;
             this.value = value;
@@ -36,12 +40,16 @@ public class Card {
         public String getRank() {
             return this.rank;
         }
+
         public int getValue() {
             return this.value;
         }
 
     }
 
+    /**
+     * Enum for card suit.
+     */
     public static enum Suit {
         Diamonds("Бубны"),
         Hearts("Черви"),
@@ -58,6 +66,7 @@ public class Card {
             return this.value;
         }
     }
+
     private final String rank;
     private final String suit;
     private int value;
@@ -69,7 +78,6 @@ public class Card {
      *
      * @param suit - suit of card.
      *
-     * @param value - blackjack value of card.
      */
     public Card(Rank rank, Suit suit) {
         this.rank = rank.getRank();
