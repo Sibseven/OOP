@@ -1,4 +1,4 @@
-package nsu.lavrenenkov;
+package ru.nsu.lavrenenkov.expression;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

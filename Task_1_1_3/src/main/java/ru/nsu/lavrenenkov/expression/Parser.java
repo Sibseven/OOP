@@ -1,4 +1,4 @@
-package nsu.lavrenenkov;
+package ru.nsu.lavrenenkov.expression;
 
 
 /**
@@ -33,7 +33,7 @@ public class Parser {
         in = in.replace(" ", "");
 
         if (isNumber(in)) {
-            return new nsu.lavrenenkov.Number(Double.parseDouble(in));
+            return new Number(Double.parseDouble(in));
         }
 
         if (in.length() == 1) {
@@ -76,6 +76,6 @@ public class Parser {
         if (oper == '/') {
             return new Div(parseExpression(left), parseExpression(right));
         }
-        return new nsu.lavrenenkov.Number(0);
+        return new Number(0);
     }
 }

@@ -1,4 +1,4 @@
-package nsu.lavrenenkov;
+package ru.nsu.lavrenenkov.expression;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +11,7 @@ public class MulTest {
 
     @Test
     public void checkMul() {
-        Mul mul = new Mul(new nsu.lavrenenkov.Number(5), new nsu.lavrenenkov.Number(4));
+        Mul mul = new Mul(new Number(5), new Number(4));
         assertTrue(mul.eval(" ") == 20.0);
     }
 }
