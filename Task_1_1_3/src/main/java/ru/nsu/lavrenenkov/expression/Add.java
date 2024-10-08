@@ -57,8 +57,12 @@ public class Add extends Expression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Add add = (Add) o;
 
         return left.equals(add.left) && right.equals(add.right);

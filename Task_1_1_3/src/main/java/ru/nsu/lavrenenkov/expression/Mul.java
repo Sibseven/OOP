@@ -55,8 +55,12 @@ public class Mul extends Expression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Mul mul = (Mul) o;
 
         return left.equals(mul.left) && right.equals(mul.right);

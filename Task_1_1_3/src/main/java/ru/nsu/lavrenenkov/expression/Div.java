@@ -59,8 +59,12 @@ public class Div extends Expression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Div div = (Div) o;
 
         return left.equals(div.left) && right.equals(div.right);
