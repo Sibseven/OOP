@@ -25,4 +25,10 @@ public class DivTest {
         Expression actual = div.derivative(" ");
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void checkHash() {
+        Div div = new Div(new Number(20), new Number(4));
+        assertEquals(div.hashCode(), new Div(new Number(20), new Number(4)).hashCode());
+    }
 }
