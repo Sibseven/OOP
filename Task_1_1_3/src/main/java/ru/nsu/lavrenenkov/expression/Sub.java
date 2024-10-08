@@ -53,4 +53,20 @@ public class Sub extends Expression {
     public String toString() {
         return "(" + this.left.toString() + "-" + this.right.toString() + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sub sub = (Sub) o;
+
+        return left.equals(sub.left) && right.equals(sub.right);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = left.hashCode();
+        result = 31 * result + right.hashCode();
+        return result;
+    }
 }

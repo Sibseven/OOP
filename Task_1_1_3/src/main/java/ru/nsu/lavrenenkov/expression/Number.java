@@ -49,4 +49,18 @@ public class Number extends Expression {
     public String toString() {
         return Double.toString(value);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Number number = (Number) o;
+
+        return number.value == value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(value);
+    }
 }

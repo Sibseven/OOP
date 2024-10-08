@@ -1,8 +1,7 @@
 package ru.nsu.lavrenenkov.expression;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
 
@@ -14,12 +13,14 @@ public class AddTest {
     @Test
     public void checkAdd() {
         Add add = new Add(new Number(5), new Number(4));
-        assertTrue(add.eval(" ") == 9.0);
+        assertEquals(9.0, add.eval(" "));
     }
 
     @Test
     public void checkDerivative() {
         Add add = new Add(new Number(5), new Number(4));
-        assertTrue(Objects.equals(add.derivative("x").toString(), "(0.0+0.0)"));
+        Expression actual = add.derivative(" ");
+        Add expected = new Add(new Number(0), new Number(0));
+        assertEquals(expected, actual);
     }
 }

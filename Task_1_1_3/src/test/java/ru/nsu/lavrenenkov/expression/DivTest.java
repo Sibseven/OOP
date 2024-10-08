@@ -23,6 +23,6 @@ public class DivTest {
                                       new Mul(new Number(20), new Number(0))),
                 new Mul(new Number(4), new Number(4)));
         Expression actual = div.derivative(" ");
-        assertEquals(expected.toString(), actual.toString());
+        assertEquals(expected, actual);
     }
 }

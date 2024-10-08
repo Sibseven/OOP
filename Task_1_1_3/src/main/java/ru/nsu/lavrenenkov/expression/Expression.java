@@ -9,7 +9,7 @@ public abstract class Expression {
      * Method for printing expression.
      */
     public void print() {
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     /**

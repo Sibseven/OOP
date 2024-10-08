@@ -18,6 +18,6 @@ public class ParserTest {
                                         new Sub(new Number(10), new Number(5))),
                 new Variable("y"));
 
-        assertEquals(expression.toString(), expected.toString());
+        assertEquals(expression, expected);
     }
 }

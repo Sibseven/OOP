@@ -1,5 +1,6 @@
 package ru.nsu.lavrenenkov.expression;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,5 +68,19 @@ public class Variable extends Expression {
     @Override
     public String toString() {
         return variableName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Variable variable = (Variable) o;
+
+        return Objects.equals(variable.variableName, variableName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(variableName);
     }
 }

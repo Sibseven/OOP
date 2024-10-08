@@ -23,7 +23,7 @@ public class VariableTest {
         Variable var1 = new Variable("x");
         Variable var2 = new Variable("y");
 
-        assertEquals(var1.derivative("x").toString(), "1.0");
-        assertEquals(var2.derivative("x").toString(), "0.0");
+        assertEquals(var1.derivative("x"), new Number(1));
+        assertEquals(var2.derivative("x"), new Number(0));
     }
 }
