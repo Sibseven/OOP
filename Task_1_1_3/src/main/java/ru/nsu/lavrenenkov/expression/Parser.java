@@ -64,18 +64,12 @@ public class Parser {
         left = in.substring(1, rightPos);
         right = in.substring(rightPos + 1, in.length() - 1);
 
-        if (oper == '+') {
-            return new Add(parseExpression(left), parseExpression(right));
-        }
-        if (oper == '-') {
-            return new Sub(parseExpression(left), parseExpression(right));
-        }
-        if (oper == '*') {
-            return new Mul(parseExpression(left), parseExpression(right));
-        }
-        if (oper == '/') {
-            return new Div(parseExpression(left), parseExpression(right));
-        }
-        return new Number(0);
+        return switch (oper) {
+            case '+' -> new Add(parseExpression(left), parseExpression(right));
+            case '-' -> new Sub(parseExpression(left), parseExpression(right));
+            case '*' -> new Mul(parseExpression(left), parseExpression(right));
+            case '/' -> new Div(parseExpression(left), parseExpression(right));
+            default -> new Number(0);
+        };
     }
 }
