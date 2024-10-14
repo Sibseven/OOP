@@ -29,9 +29,8 @@ public class TopologicalSort {
         for (int i = 0; i < nodes.size(); i++) {
             if (marked[i] == 0) {
                 try {
-                    TopoHelper(i);
-                }
-                catch (IllegalArgumentException e) {
+                    topoHelper(i);
+                } catch (IllegalArgumentException e) {
                     System.out.println("Cycle found");
                     throw e;
                 }
@@ -50,7 +49,7 @@ public class TopologicalSort {
      *
      * @throws IllegalArgumentException if cycle found on graph on this iteration.
      */
-    private void TopoHelper(int index) throws IllegalArgumentException{
+    private void topoHelper(int index) throws IllegalArgumentException {
         if (marked[index] == 2) {
             return;
         }
@@ -61,7 +60,7 @@ public class TopologicalSort {
         List<Integer> neighbors = graph.getNeighbors(nodes.get(index));
         for (Integer neighbor : neighbors) {
             int indexNeighbor = nodes.indexOf(neighbor);
-                TopoHelper(indexNeighbor);
+            topoHelper(indexNeighbor);
         }
         marked[index] = 2;
         result.add(nodes.get(index));

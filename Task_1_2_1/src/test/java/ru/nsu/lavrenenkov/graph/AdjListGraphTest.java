@@ -17,6 +17,9 @@ import org.junit.jupiter.api.Test;
 public class AdjListGraphTest {
     private AdjListGraph graph;
 
+    /**
+     * Method for setting up a simple graph.
+     */
     @BeforeEach
     public void setUp() {
         graph = new AdjListGraph();
@@ -24,6 +27,7 @@ public class AdjListGraphTest {
         graph.addNode(2);
         graph.addNode(3);
     }
+
     @Test
     public void checkAddNode() {
         List<Integer> result = graph.getNodeIds();
@@ -67,7 +71,7 @@ public class AdjListGraphTest {
         graph.addEdge(3, 1);
         graph.deleteEdge(2, 3);
         int[] result = graph.getEdgesCount();
-        int[] expected = {2, 1 ,1};
+        int[] expected = {2, 1, 1};
         assertArrayEquals(result, expected);
     }
 
@@ -81,7 +85,7 @@ public class AdjListGraphTest {
         List<Integer> expected = new ArrayList<>();
         expected.add(3);
         expected.add(1);
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test

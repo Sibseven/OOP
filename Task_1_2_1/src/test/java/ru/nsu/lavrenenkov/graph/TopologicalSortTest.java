@@ -3,7 +3,6 @@ package ru.nsu.lavrenenkov.graph;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,12 +22,12 @@ public class TopologicalSortTest {
         graph.addNode(3);
         graph.addNode(4);
         graph.addNode(5);
-        graph.addEdge(5,0);
-        graph.addEdge(5,2);
-        graph.addEdge(2,3);
-        graph.addEdge(3,1);
+        graph.addEdge(5, 0);
+        graph.addEdge(5, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1);
         graph.addEdge(4, 1);
-        graph.addEdge(4,0);
+        graph.addEdge(4, 0);
 
         TopologicalSort sort = new TopologicalSort();
         List<Integer> result = sort.topologicalSort(graph);
@@ -45,12 +44,12 @@ public class TopologicalSortTest {
         graph.addNode(3);
         graph.addNode(4);
         graph.addNode(5);
-        graph.addEdge(5,0);
-        graph.addEdge(5,2);
-        graph.addEdge(2,3);
-        graph.addEdge(3,1);
+        graph.addEdge(5, 0);
+        graph.addEdge(5, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1);
         graph.addEdge(4, 1);
-        graph.addEdge(4,0);
+        graph.addEdge(4, 0);
 
         TopologicalSort sort = new TopologicalSort();
         List<Integer> result = sort.topologicalSort(graph);
@@ -67,12 +66,12 @@ public class TopologicalSortTest {
         graph.addNode(3);
         graph.addNode(4);
         graph.addNode(5);
-        graph.addEdge(5,0);
-        graph.addEdge(5,2);
-        graph.addEdge(2,3);
-        graph.addEdge(3,1);
+        graph.addEdge(5, 0);
+        graph.addEdge(5, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1);
         graph.addEdge(4, 1);
-        graph.addEdge(4,0);
+        graph.addEdge(4, 0);
 
         TopologicalSort sort = new TopologicalSort();
         List<Integer> result = sort.topologicalSort(graph);
@@ -81,15 +80,15 @@ public class TopologicalSortTest {
     }
 
     @Test
-    public void checkBadGraph(){
+    public void checkBadGraph() {
         InMatGraph graph = new InMatGraph();
         graph.addNode(0);
         graph.addNode(1);
         graph.addNode(2);
 
-        graph.addEdge(0,1);
-        graph.addEdge(1,2);
-        graph.addEdge(2,0);
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 0);
         TopologicalSort sort = new TopologicalSort();
         assertThrowsExactly(IllegalArgumentException.class, () -> sort.topologicalSort(graph));
     }

@@ -48,12 +48,12 @@ public class AdjMatGraph implements Graph {
         if (findNodeIndexByid(id) >= 0) {
             throw new IllegalArgumentException("Node already exists");
         }
-        for (Node node: nodes){
+        for (Node node : nodes) {
             node.elements.add(0);
 
         }
         nodes.add(new Node(id));
-        for (int i = 0; i < nodes.size(); i++){
+        for (int i = 0; i < nodes.size(); i++) {
             nodes.get(nodes.size() - 1).elements.add(0);
         }
     }
@@ -71,7 +71,7 @@ public class AdjMatGraph implements Graph {
         if (index < 0) {
             throw new IllegalArgumentException("vertex are not present in the graph.");
         }
-        for (Node node: nodes){
+        for (Node node : nodes) {
             node.elements.remove(index);
         }
         nodes.remove(index);
@@ -95,8 +95,8 @@ public class AdjMatGraph implements Graph {
             throw new IllegalArgumentException("vertex are not present in the graph.");
         }
         int i = 0;
-        for (Integer node: nodes.get(index).elements){
-            if (node == 1){
+        for (Integer node : nodes.get(index).elements) {
+            if (node == 1) {
                 result.add(nodes.get(i).id);
             }
             i++;
@@ -118,7 +118,7 @@ public class AdjMatGraph implements Graph {
         int indexFrom = findNodeIndexByid(idFrom);
         int indexTo = findNodeIndexByid(idTo);
         if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One or both vertices are not present in the graph.");
+            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
         }
         nodes.get(indexFrom).elements.set(indexTo, 1);
 
@@ -132,14 +132,14 @@ public class AdjMatGraph implements Graph {
      * @param idTo - id
      *
      * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     * or if nodes exists but not an edge between them
+     *     or if nodes exists but not an edge between them
      */
     @Override
     public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
         int indexTo = findNodeIndexByid(idTo);
         if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One or both vertices are not present in the graph.");
+            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
         }
         if (nodes.get(indexFrom).elements.get(indexTo) == 0) {
             throw new IllegalArgumentException("Edge is not present in the graph.");
@@ -162,7 +162,7 @@ public class AdjMatGraph implements Graph {
         try (Scanner scanner = new Scanner(file)) {
             int n = scanner.nextInt();
             int m = scanner.nextInt();
-            for (int i = 1; i < n+1; i++) {
+            for (int i = 1; i < n + 1; i++) {
                 graph.addNode(i);
             }
             for (int i = 0; i < m; i++) {
@@ -198,7 +198,7 @@ public class AdjMatGraph implements Graph {
     public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
         for (int i = 0; i < nodes.size(); i++) {
-            for (int j = 0; j < nodes.size(); j++){
+            for (int j = 0; j < nodes.size(); j++) {
                 if (nodes.get(i).elements.get(j) == 1){
                     result[i]++;
                 }

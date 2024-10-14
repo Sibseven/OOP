@@ -70,13 +70,13 @@ public class InMatGraph implements Graph {
         }
         List<Integer> edgesToDelete = new ArrayList<>();
         for (int i = 0; i < nodes.get(index).elements.size(); i++) {
-            if (nodes.get(index).elements.get(i).equals(1) ||
-                    nodes.get(index).elements.get(i).equals(-1)) {
+            if (nodes.get(index).elements.get(i).equals(1)
+                    || nodes.get(index).elements.get(i).equals(-1)) {
                 edgesToDelete.add(i);
             }
         }
         for (Node matNode : nodes) {
-            for(int i = edgesToDelete.size()-1; i >= 0 ; i--) {
+            for (int i = edgesToDelete.size() - 1; i >= 0; i--) {
                 matNode.elements.remove(edgesToDelete.get(i).intValue());
             }
         }
@@ -100,7 +100,7 @@ public class InMatGraph implements Graph {
         if (index < 0) {
             throw new IllegalArgumentException("vertex are not present in the graph.");
         }
-        for(int i = 0; i < nodes.get(index).elements.size(); i++) {
+        for (int i = 0; i < nodes.get(index).elements.size(); i++) {
             if (nodes.get(index).elements.get(i).equals(-1)) {
                 for (Node node : nodes) {
                     if (node.elements.get(i).equals(1)) {
@@ -127,9 +127,9 @@ public class InMatGraph implements Graph {
         int indexFrom = findNodeIndexByid(idFrom);
         int indexTo = findNodeIndexByid(idTo);
         if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One or both vertices are not present in the graph.");
+            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
         }
-        for (Node node: nodes) {
+        for (Node node : nodes) {
             node.elements.add(0);
         }
         nodes.get(indexFrom).elements.set(nodes.get(indexFrom).elements.size() - 1, -1);
@@ -145,19 +145,19 @@ public class InMatGraph implements Graph {
      * @param idTo - id
      *
      * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     * or if nodes exists but not an edge between them
+     *     or if nodes exists but not an edge between them
      */
     @Override
     public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
         int indexTo = findNodeIndexByid(idTo);
         if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One or both vertices are not present in the graph.");
+            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
 
         }
         int i;
         boolean noEdge = true;
-        for (i = 0 ; i < nodes.get(0).elements.size(); i++) {
+        for (i = 0; i < nodes.get(0).elements.size(); i++) {
             if (nodes.get(indexFrom).elements.get(i) == -1
                     && nodes.get(indexTo).elements.get(i) == 1) {
                 noEdge = false;
@@ -167,7 +167,7 @@ public class InMatGraph implements Graph {
         if (noEdge) {
             throw new IllegalArgumentException("edge is not present in the graph.");
         }
-        for (Node node: nodes) {
+        for (Node node : nodes) {
             node.elements.remove(i);
         }
     }
@@ -185,7 +185,7 @@ public class InMatGraph implements Graph {
         try (Scanner scanner = new Scanner(file)) {
             int n = scanner.nextInt();
             int m = scanner.nextInt();
-            for (int i = 1; i < n+1; i++) {
+            for (int i = 1; i < n + 1; i++) {
                 graph.addNode(i);
             }
             for (int i = 0; i < m; i++) {
@@ -201,7 +201,7 @@ public class InMatGraph implements Graph {
     }
 
     /**
-     * Returns all ids of nodes in graph
+     * Returns all ids of nodes in graph.
      *
      * @return List of ids
      */
@@ -214,7 +214,7 @@ public class InMatGraph implements Graph {
 
     /**
      * Method for counting number of incident edges of all nodes.
-     * 
+     *
      * @return array of number of edges incident to each node
      */
     public int[] getEdgesCount() {

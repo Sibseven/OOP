@@ -3,8 +3,6 @@ package ru.nsu.lavrenenkov.graph;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -19,6 +17,9 @@ import org.junit.jupiter.api.Test;
 public class AdjMatGraphTest {
     private AdjMatGraph graph;
 
+    /**
+     * Method for setting up a simple graph.
+     */
     @BeforeEach
     public void setUp() {
         graph = new AdjMatGraph();
@@ -26,6 +27,7 @@ public class AdjMatGraphTest {
         graph.addNode(2);
         graph.addNode(3);
     }
+
     @Test
     public void checkAddNode() {
         List<Integer> result = graph.getNodeIds();
@@ -69,7 +71,7 @@ public class AdjMatGraphTest {
         graph.addEdge(3, 1);
         graph.deleteEdge(2, 3);
         int[] result = graph.getEdgesCount();
-        int[] expected = {2, 1 ,1};
+        int[] expected = {2, 1, 1};
         assertArrayEquals(result, expected);
     }
 
@@ -83,7 +85,7 @@ public class AdjMatGraphTest {
         List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(3);
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test

@@ -105,7 +105,7 @@ public class AdjListGraph implements Graph {
         int indexFrom = findNodeIndexByid(idFrom);
         int indexTo = findNodeIndexByid(idTo);
         if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One or both vertices are not present in the graph.");
+            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
         }
         nodes.get(indexFrom).elements.add(idTo);
     }
@@ -118,16 +118,16 @@ public class AdjListGraph implements Graph {
      * @param idTo - id
      *
      * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     * or if nodes exists but not an edge between them
+     *     or if nodes exists but not an edge between them
      */
     @Override
     public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
         int indexTo = findNodeIndexByid(idTo);
         if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One or both vertices are not present in the graph.");
+            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
         }
-        if(!nodes.get(indexFrom).elements.remove(Integer.valueOf(idTo))) {
+        if (!nodes.get(indexFrom).elements.remove(Integer.valueOf(idTo))) {
             throw new IllegalArgumentException("edge is not present in the graph.");
         }
     }
@@ -145,7 +145,7 @@ public class AdjListGraph implements Graph {
         try (Scanner scanner = new Scanner(file)) {
             int n = scanner.nextInt();
             int m = scanner.nextInt();
-            for (int i = 1; i < n+1; i++) {
+            for (int i = 1; i < n + 1; i++) {
                 graph.addNode(i);
             }
             for (int i = 0; i < m; i++) {
@@ -177,12 +177,12 @@ public class AdjListGraph implements Graph {
      *
      * @return array of number of edges incident to each node
      */
-    public int[] getEdgesCount(){
+    public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
         for (int i = 0; i < result.length; i++) {
             final int id = nodes.get(i).id;
             result[i] = nodes.get(i).elements.size();
-            for(int j = 0; j < result.length; j++){
+            for (int j = 0; j < result.length; j++) {
                 result[i] += nodes.get(j).elements.stream().filter(x -> x == id).count();
             }
         }

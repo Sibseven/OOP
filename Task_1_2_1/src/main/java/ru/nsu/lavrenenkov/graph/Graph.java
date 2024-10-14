@@ -19,7 +19,8 @@ public interface Graph {
 
 
     /**
-     * Deletes node from graph
+     * Deletes node from graph.
+     *
      * @param id - unique id of node
      *
      * @throws IllegalArgumentException if no such node with given id in graph
@@ -39,7 +40,8 @@ public interface Graph {
 
 
     /**
-     * Adds directed edge from node with idFrom to node with idTo
+     * Adds directed edge from node with idFrom to node with idTo.
+     *
      * @param idFrom - id
      *
      * @param idTo - id
@@ -50,14 +52,14 @@ public interface Graph {
 
 
     /**
-     * Deletes directed edge from node with idFrom to node with idTo
+     * Deletes directed edge from node with idFrom to node with idTo.
      *
      * @param idFrom - id
      *
      * @param idTo - id
      *
      * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     * or if nodes exists but not an edge between them
+     *     or if nodes exists but not an edge between them
      */
     void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException;
 
@@ -76,7 +78,8 @@ public interface Graph {
     Graph readFromFile(File file);
 
     /**
-     * Returns all ids of nodes in graph
+     * Returns all ids of nodes in graph.
+     *
      * @return List of ids
      */
     List<Integer> getNodeIds();

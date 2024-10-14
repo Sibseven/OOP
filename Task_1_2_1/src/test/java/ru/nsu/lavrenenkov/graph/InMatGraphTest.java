@@ -3,7 +3,6 @@ package ru.nsu.lavrenenkov.graph;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -13,10 +12,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-
+/**
+ * Class for testing InMatGraph class.
+ */
 public class InMatGraphTest {
     private InMatGraph graph;
 
+    /**
+     * Method for setting up a simple graph.
+     */
     @BeforeEach
     public void setUp() {
         graph = new InMatGraph();
@@ -24,6 +28,7 @@ public class InMatGraphTest {
         graph.addNode(2);
         graph.addNode(3);
     }
+
     @Test
     public void checkAddNode() {
         List<Integer> result = graph.getNodeIds();
@@ -67,7 +72,7 @@ public class InMatGraphTest {
         graph.addEdge(3, 1);
         graph.deleteEdge(2, 3);
         int[] result = graph.getEdgesCount();
-        int[] expected = {2, 1 ,1};
+        int[] expected = {2, 1, 1};
         assertArrayEquals(result, expected);
     }
 
@@ -83,6 +88,7 @@ public class InMatGraphTest {
         expected.add(1);
         assertEquals(result, expected);
     }
+
     @Test
     public void checkReadFromFile() throws URISyntaxException {
         InMatGraph graph = new InMatGraph();
