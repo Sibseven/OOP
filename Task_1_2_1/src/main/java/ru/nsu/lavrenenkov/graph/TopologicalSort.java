@@ -20,7 +20,7 @@ public class TopologicalSort {
      *
      * @throws IllegalArgumentException if cycle found in graph
      */
-    public List<Integer> topologicalSort(Graph graph) throws IllegalArgumentException{
+    public List<Integer> topologicalSort(Graph graph) throws IllegalArgumentException {
         this.graph = graph;
         nodes = graph.getNodeIds();
         result = new ArrayList<>();

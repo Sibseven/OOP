@@ -199,7 +199,7 @@ public class AdjMatGraph implements Graph {
         int[] result = new int[nodes.size()];
         for (int i = 0; i < nodes.size(); i++) {
             for (int j = 0; j < nodes.size(); j++) {
-                if (nodes.get(i).elements.get(j) == 1){
+                if (nodes.get(i).elements.get(j) == 1) {
                     result[i]++;
                 }
             }
