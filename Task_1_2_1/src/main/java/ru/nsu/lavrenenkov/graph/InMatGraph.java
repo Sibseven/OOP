@@ -39,13 +39,6 @@ public class InMatGraph implements Graph {
     }
 
 
-    /**
-     * Adds node to graph.
-     *
-     * @param id - unique id of node
-     *
-     * @throws IllegalArgumentException if node with given id already exists in graph.
-     */
     @Override
     public void addNode(int id) throws IllegalArgumentException {
         if (findNodeIndexByid(id) >= 0) {
@@ -54,14 +47,6 @@ public class InMatGraph implements Graph {
         nodes.add(new Node(id));
     }
 
-
-    /**
-     * Deletes node from graph.
-     *
-     * @param id - unique id of node
-     *
-     * @throws IllegalArgumentException if no such node with given id in graph
-     */
     @Override
     public void deleteNode(int id) throws IllegalArgumentException {
         int index = findNodeIndexByid(id);
@@ -83,16 +68,6 @@ public class InMatGraph implements Graph {
         nodes.remove(index);
     }
 
-
-    /**
-     * Returns list of neighbors.
-     *
-     * @param id - unique id of node
-     *
-     * @return List of node IDs that have an edge originating from the node with the given ID.
-     *
-     * @throws IllegalArgumentException if no such node with given id in graph
-     */
     @Override
     public List<Integer> getNeighbors(int id) {
         List<Integer> result = new ArrayList<>();
@@ -113,15 +88,6 @@ public class InMatGraph implements Graph {
 
     }
 
-    /**
-     * Adds directed edge from node with idFrom to node with idTo.
-     *
-     * @param idFrom - id
-     *
-     * @param idTo - id
-     *
-     * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     */
     @Override
     public void addEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
@@ -136,17 +102,6 @@ public class InMatGraph implements Graph {
         nodes.get(indexTo).elements.set(nodes.get(indexTo).elements.size() - 1, 1);
     }
 
-
-    /**
-     * Deletes directed edge from node with idFrom to node with idTo.
-     *
-     * @param idFrom - id
-     *
-     * @param idTo - id
-     *
-     * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     *     or if nodes exists but not an edge between them
-     */
     @Override
     public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
@@ -200,11 +155,6 @@ public class InMatGraph implements Graph {
         return graph;
     }
 
-    /**
-     * Returns all ids of nodes in graph.
-     *
-     * @return List of ids
-     */
     @Override
     public List<Integer> getNodeIds() {
         return nodes.stream()

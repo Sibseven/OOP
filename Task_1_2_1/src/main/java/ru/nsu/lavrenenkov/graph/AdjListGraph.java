@@ -14,9 +14,7 @@ import java.util.stream.Collectors;
 public class AdjListGraph implements Graph {
     private final List<Node> nodes;
 
-    /**
-     * Builder.
-     */
+
     AdjListGraph() {
         this.nodes = new ArrayList<>();
     }
@@ -37,13 +35,6 @@ public class AdjListGraph implements Graph {
         return -1;
     }
 
-    /**
-     * Adds node to graph.
-     *
-     * @param id - unique id of node
-     *
-     * @throws IllegalArgumentException if node with given id already exists in graph.
-     */
     @Override
     public void addNode(int id) throws IllegalArgumentException {
         if (findNodeIndexByid(id) >= 0) {
@@ -65,16 +56,6 @@ public class AdjListGraph implements Graph {
         nodes.remove(index);
     }
 
-
-    /**
-     * Returns list of neighbors.
-     *
-     * @param id - unique id of node
-     *
-     * @return List of node IDs that have an edge originating from the node with the given ID.
-     *
-     * @throws IllegalArgumentException if no such node with given id in graph
-     */
     @Override
     public List<Integer> getNeighbors(int id) throws IllegalArgumentException {
         int index = findNodeIndexByid(id);
@@ -84,15 +65,6 @@ public class AdjListGraph implements Graph {
         return nodes.get(index).elements;
     }
 
-    /**
-     * Adds directed edge from node with idFrom to node with idTo.
-     *
-     * @param idFrom - id
-     *
-     * @param idTo - id
-     *
-     * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     */
     @Override
     public void addEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
@@ -103,16 +75,7 @@ public class AdjListGraph implements Graph {
         nodes.get(indexFrom).elements.add(idTo);
     }
 
-    /**
-     * Deletes directed edge from node with idFrom to node with idTo.
-     *
-     * @param idFrom - id
-     *
-     * @param idTo - id
-     *
-     * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
-     *     or if nodes exists but not an edge between them
-     */
+
     @Override
     public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
         int indexFrom = findNodeIndexByid(idFrom);
@@ -125,13 +88,7 @@ public class AdjListGraph implements Graph {
         }
     }
 
-    /**
-     * Reads graph from file.
-     *
-     * @param file - file to read from.
-     *
-     * @return AdjListGraph
-     */
+
     @Override
     public Graph readFromFile(File file)  {
         AdjListGraph graph = new AdjListGraph();
@@ -153,11 +110,6 @@ public class AdjListGraph implements Graph {
         return graph;
     }
 
-    /**
-     * Method Returns all ids of nodes in graph.
-     *
-     * @return List of ids
-     */
     @Override
     public List<Integer> getNodeIds() {
         return nodes.stream()
