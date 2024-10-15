@@ -53,13 +53,6 @@ public class AdjListGraph implements Graph {
 
     }
 
-    /**
-     * Deletes node from graph.
-     *
-     * @param id - unique id of node
-     *
-     * @throws IllegalArgumentException if no such node with given id in graph
-     */
     @Override
     public void deleteNode(int id) throws IllegalArgumentException {
         int index = findNodeIndexByid(id);
