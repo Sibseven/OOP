@@ -91,7 +91,7 @@ public class TopologicalSortTest {
         expected.add(nodes.get(3));
         expected.add(nodes.get(1));
         expected.add(nodes.get(0));
-        
+
         List<Node<Integer>> result = sort.topologicalSort(graph);
         assertEquals(expected, result);
     }

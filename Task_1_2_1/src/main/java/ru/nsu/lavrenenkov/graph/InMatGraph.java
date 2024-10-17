@@ -1,10 +1,8 @@
 package ru.nsu.lavrenenkov.graph;
 
 
-
-import java.util.List;
 import java.util.ArrayList;
-
+import java.util.List;
 
 /**
  * Incident Matrix implementation of Graph.

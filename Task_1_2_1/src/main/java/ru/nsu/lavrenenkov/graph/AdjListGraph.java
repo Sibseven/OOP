@@ -2,10 +2,11 @@ package ru.nsu.lavrenenkov.graph;
 
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 
 /**
@@ -92,7 +93,7 @@ public class AdjListGraph<T> implements Graph<T> {
             for (Node<T> node1 : nodes.keySet()) {
                 for (Edge<T> edge : nodes.get(node1)) {
                     if (edge.to == node || edge.from == node) {
-                        result[i] ++;
+                        result[i]++;
                     }
                 }
             }

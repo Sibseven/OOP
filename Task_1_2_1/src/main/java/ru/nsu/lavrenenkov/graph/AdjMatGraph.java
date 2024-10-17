@@ -1,10 +1,11 @@
 package ru.nsu.lavrenenkov.graph;
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * Class for holding graph in Adjacency matrix.
