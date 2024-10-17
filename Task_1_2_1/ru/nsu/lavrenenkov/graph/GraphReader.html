@@ -162,7 +162,17 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">read</span><wbr><span class="parameters">(<a href="Graph.html" title="interface in ru.nsu.lavrenenkov.graph">Graph</a>&lt;T&gt;&nbsp;graph,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;file,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>T&gt;&nbsp;parser)</span></div>
-<div class="block">Method for reading and parsing file into graph.</div>
+<div class="block">Method for reading and parsing file into graph.
+ Reads graph from file.
+ Format:
+ [number of nodes] [number of edges]
+ node1
+ node2
+ ...
+ nodeN
+ [idFrom1] [idTo1]
+ ...
+ [idFrom*number of edges*] [idTo*number of edges*]</div>
 <dl class="notes">
 <dt>Type Parameters:</dt>
 <dd><code>T</code> - - type of nodes in graph</dd>
