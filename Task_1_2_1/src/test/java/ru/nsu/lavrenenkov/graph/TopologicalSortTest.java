@@ -15,7 +15,9 @@ public class TopologicalSortTest {
     private List<Node<Integer>> nodes;
     private List<Edge<Integer>> edges;
 
-
+    /**
+     * Method for setup nodes and edges of simple acyclic graph.
+     */
     @BeforeEach
     public void setUp() {
         nodes = new ArrayList<>();
