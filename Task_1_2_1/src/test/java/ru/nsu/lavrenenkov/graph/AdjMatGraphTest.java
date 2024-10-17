@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 public class AdjMatGraphTest {
     private AdjMatGraph<Integer> graph;
     private List<Node<Integer>> nodes;
+
     /**
      * Method for setting up a simple graph.
      */
@@ -98,10 +99,10 @@ public class AdjMatGraphTest {
         GraphReader reader = new GraphReader();
         File file = new File(getClass().getClassLoader().getResource("text.txt").toURI());
         AdjMatGraph<Integer> graph = new AdjMatGraph<>();
-        reader.read(graph ,file, Integer::parseInt);
+        reader.read(graph, file, Integer::parseInt);
         List<Node<Integer>> nodes = graph.getNodes();
         List<Integer> result = new ArrayList<>();
-        for(Node<Integer> node : nodes) {
+        for (Node<Integer> node : nodes) {
             result.add(node.getId());
         }
         List<Integer> expected = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));

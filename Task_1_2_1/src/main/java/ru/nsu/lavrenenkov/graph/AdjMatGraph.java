@@ -1,9 +1,10 @@
 package ru.nsu.lavrenenkov.graph;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-import java.util.stream.Collectors;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Class for holding graph in Adjacency matrix.
@@ -82,13 +83,14 @@ public class AdjMatGraph<T> implements Graph<T> {
      *
      * @return array of number of edges incident to each node
      */
+    @Override
     public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
         int i = 0;
-        for(Node<T> node: nodes.keySet()) {
-            for(Edge<T> edge : edges) {
-                if(edge.to == node || edge.from == node) {
-                    result[i] ++;
+        for (Node<T> node : nodes.keySet()) {
+            for (Edge<T> edge : edges) {
+                if (edge.to == node || edge.from == node) {
+                    result[i]++;
                 }
             }
             i++;

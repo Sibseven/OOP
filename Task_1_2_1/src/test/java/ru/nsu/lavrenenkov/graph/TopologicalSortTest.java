@@ -17,7 +17,7 @@ public class TopologicalSortTest {
 
 
     @BeforeEach
-    public void SetUp() {
+    public void setUp() {
         nodes = new ArrayList<>();
         nodes.add(new Node<>(0));
         nodes.add(new Node<>(1));
@@ -35,6 +35,7 @@ public class TopologicalSortTest {
         edges.add(new Edge<>(nodes.get(4), nodes.get(0), 6));
 
     }
+
     @Test
     public void checkAdjListGraph() {
         AdjListGraph<Integer> graph = new AdjListGraph<>();
@@ -52,7 +53,7 @@ public class TopologicalSortTest {
         graph.addEdge(edges.get(5));
 
         TopologicalSort<Integer> sort = new TopologicalSort<>();
-        List<Node<Integer>> result = sort.topologicalSort(graph);
+
         List<Node<Integer>> expected = new ArrayList<>();
         expected.add(nodes.get(5));
         expected.add(nodes.get(4));
@@ -60,6 +61,8 @@ public class TopologicalSortTest {
         expected.add(nodes.get(3));
         expected.add(nodes.get(1));
         expected.add(nodes.get(0));
+
+        List<Node<Integer>> result = sort.topologicalSort(graph);
         assertEquals(expected, result);
     }
 
@@ -80,7 +83,7 @@ public class TopologicalSortTest {
         graph.addEdge(edges.get(5));
 
         TopologicalSort<Integer> sort = new TopologicalSort<>();
-        List<Node<Integer>> result = sort.topologicalSort(graph);
+
         List<Node<Integer>> expected = new ArrayList<>();
         expected.add(nodes.get(5));
         expected.add(nodes.get(4));
@@ -88,6 +91,8 @@ public class TopologicalSortTest {
         expected.add(nodes.get(3));
         expected.add(nodes.get(1));
         expected.add(nodes.get(0));
+        
+        List<Node<Integer>> result = sort.topologicalSort(graph);
         assertEquals(expected, result);
     }
 
@@ -108,7 +113,7 @@ public class TopologicalSortTest {
         graph.addEdge(edges.get(5));
 
         TopologicalSort<Integer> sort = new TopologicalSort<>();
-        List<Node<Integer>> result = sort.topologicalSort(graph);
+
         List<Node<Integer>> expected = new ArrayList<>();
         expected.add(nodes.get(5));
         expected.add(nodes.get(4));
@@ -116,6 +121,8 @@ public class TopologicalSortTest {
         expected.add(nodes.get(3));
         expected.add(nodes.get(1));
         expected.add(nodes.get(0));
+
+        List<Node<Integer>> result = sort.topologicalSort(graph);
         assertEquals(expected, result);
     }
 

@@ -14,6 +14,16 @@ public class GraphReader {
 
     /**
      * Method for reading and parsing file into graph.
+     * Reads graph from file.
+     * Format:
+     * [number of nodes] [number of edges]
+     * node1
+     * node2
+     * ...
+     * nodeN
+     * [idFrom1] [idTo1]
+     * ...
+     * [idFrom*number of edges*] [idTo*number of edges*]
      *
      * @param graph - graph to read into
      *

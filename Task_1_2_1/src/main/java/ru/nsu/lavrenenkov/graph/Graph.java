@@ -60,26 +60,17 @@ public interface Graph<T> {
     void deleteEdge(Edge<T> edge) throws IllegalArgumentException;
 
     /**
-     * Reads graph from file.
-     * Format:
-     * [number of nodes] [number of edges]
-     * [idFrom1] [idTo1]
-     * ...
-     * [idFrom*number of edges*] [idTo*number of edges*]
-     *
-     * @param file - file.
-     *
-     * @return Objects implementing Graph Interface.
-     */
-//    Graph<T> readFromFile(File file);
-
-    /**
      * Returns all ids of nodes in graph.
      *
      * @return List of ids
      */
     List<Node<T>> getNodes();
 
+    /**
+     * Method for counting incident edges to graph.
+     *
+     * @return array of number of incident edges to all nodes
+     */
     int[] getEdgesCount();
 
 }

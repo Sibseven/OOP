@@ -1,9 +1,11 @@
 package ru.nsu.lavrenenkov.graph;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-import java.util.stream.Collectors;
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -82,10 +84,11 @@ public class AdjListGraph<T> implements Graph<T> {
      *
      * @return array of number of edges incident to each node
      */
+    @Override
     public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
         int i = 0;
-        for (Node<T> node: nodes.keySet()) {
+        for (Node<T> node : nodes.keySet()) {
             for (Node<T> node1 : nodes.keySet()) {
                 for (Edge<T> edge : nodes.get(node1)) {
                     if (edge.to == node || edge.from == node) {

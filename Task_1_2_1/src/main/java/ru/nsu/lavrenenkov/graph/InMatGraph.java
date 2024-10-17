@@ -1,7 +1,9 @@
 package ru.nsu.lavrenenkov.graph;
 
 
-import java.util.*;
+
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -21,7 +23,7 @@ public class InMatGraph<T> implements Graph<T> {
 
     @Override
     public void addNode(Node<T> node) throws IllegalArgumentException {
-        if(nodes.contains(node)) {
+        if (nodes.contains(node)) {
             throw new IllegalArgumentException("Node already exists");
         }
         nodes.add(node);
@@ -29,7 +31,7 @@ public class InMatGraph<T> implements Graph<T> {
 
     @Override
     public void deleteNode(Node<T> node) throws IllegalArgumentException {
-        if(!nodes.contains(node)) {
+        if (!nodes.contains(node)) {
             throw new IllegalArgumentException("Node does not exist");
         }
         nodes.remove(node);
@@ -43,7 +45,7 @@ public class InMatGraph<T> implements Graph<T> {
         }
         List<Node<T>> result = new ArrayList<>();
         for (Edge<T> edge : edges) {
-            if(edge.from == node) {
+            if (edge.from == node) {
                 result.add(edge.to);
             }
         }
@@ -52,7 +54,7 @@ public class InMatGraph<T> implements Graph<T> {
 
     @Override
     public void addEdge(Edge<T> edge) throws IllegalArgumentException {
-        if(edges.contains(edge)) {
+        if (edges.contains(edge)) {
             throw new IllegalArgumentException("Edge already exists");
         }
         edges.add(edge);
@@ -79,13 +81,14 @@ public class InMatGraph<T> implements Graph<T> {
      *
      * @return array of number of edges incident to each node
      */
+    @Override
     public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
         int i = 0;
-        for(Node<T> node: nodes) {
-            for(Edge<T> edge : edges) {
-                if(edge.to == node || edge.from == node) {
-                    result[i] ++;
+        for (Node<T> node : nodes) {
+            for (Edge<T> edge : edges) {
+                if (edge.to == node || edge.from == node) {
+                    result[i]++;
                 }
             }
             i++;
