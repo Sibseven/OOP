@@ -6,62 +6,58 @@ import java.util.List;
 /**
  * Interface for working with graph.
  */
-public interface Graph {
+public interface Graph<T> {
 
     /**
      * Adds node to graph.
      *
-     * @param id - unique id of node
+     * @param node - unique node
      *
-     * @throws IllegalArgumentException if node with given id already exists in graph.
+     * @throws IllegalArgumentException if node already exists in graph.
      */
-    void addNode(int id) throws IllegalArgumentException;
+    void addNode(Node<T> node) throws IllegalArgumentException;
 
 
     /**
      * Deletes node from graph.
      *
-     * @param id - unique id of node
+     * @param node - unique node
      *
      * @throws IllegalArgumentException if no such node with given id in graph
      */
-    void deleteNode(int id) throws IllegalArgumentException;
+    void deleteNode(Node<T> node) throws IllegalArgumentException;
 
     /**
      * Returns list of neighbors.
      *
-     * @param id - unique id of node
+     * @param node - unique node
      *
      * @return List of node IDs that have an edge originating from the node with the given ID.
      *
      * @throws IllegalArgumentException if no such node with given id in graph
      */
-    List<Integer> getNeighbors(int id) throws IllegalArgumentException;
+    List<Node<T>> getNeighbors(Node<T> node) throws IllegalArgumentException;
 
 
     /**
      * Adds directed edge from node with idFrom to node with idTo.
      *
-     * @param idFrom - id
-     *
-     * @param idTo - id
+     * @param edge - edge to add
      *
      * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
      */
-    void addEdge(int idFrom, int idTo) throws IllegalArgumentException;
+    void addEdge(Edge<T> edge) throws IllegalArgumentException;
 
 
     /**
      * Deletes directed edge from node with idFrom to node with idTo.
      *
-     * @param idFrom - id
-     *
-     * @param idTo - id
+     * @param edge - edge to delete
      *
      * @throws IllegalArgumentException - if no such node/nodes with given id/ids in graph
      *     or if nodes exists but not an edge between them
      */
-    void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException;
+    void deleteEdge(Edge<T> edge) throws IllegalArgumentException;
 
     /**
      * Reads graph from file.
@@ -75,13 +71,15 @@ public interface Graph {
      *
      * @return Objects implementing Graph Interface.
      */
-    Graph readFromFile(File file);
+//    Graph<T> readFromFile(File file);
 
     /**
      * Returns all ids of nodes in graph.
      *
      * @return List of ids
      */
-    List<Integer> getNodeIds();
+    List<Node<T>> getNodes();
+
+    int[] getEdgesCount();
 
 }

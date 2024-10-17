@@ -6,11 +6,11 @@ import java.util.List;
 /**
  * Class for performing topological sort on graph.
  */
-public class TopologicalSort {
+public class TopologicalSort<T> {
     private int[] marked;
-    private Graph graph;
-    private List<Integer> nodes;
-    private List<Integer> result;
+    private Graph<T> graph;
+    private List<Node<T>> nodes;
+    private List<Node<T>> result;
 
 
     /**
@@ -20,9 +20,9 @@ public class TopologicalSort {
      *
      * @throws IllegalArgumentException if cycle found in graph
      */
-    public List<Integer> topologicalSort(Graph graph) throws IllegalArgumentException {
+    public List<Node<T>> topologicalSort(Graph<T> graph) throws IllegalArgumentException {
         this.graph = graph;
-        nodes = graph.getNodeIds();
+        nodes = graph.getNodes();
         result = new ArrayList<>();
         marked = new int[nodes.size()];
 
@@ -57,8 +57,8 @@ public class TopologicalSort {
             throw new IllegalArgumentException();
         }
         marked[index] = 1;
-        List<Integer> neighbors = graph.getNeighbors(nodes.get(index));
-        for (Integer neighbor : neighbors) {
+        List<Node<T>> neighbors = graph.getNeighbors(nodes.get(index));
+        for (Node<T> neighbor : neighbors) {
             int indexNeighbor = nodes.indexOf(neighbor);
             topoHelper(indexNeighbor);
         }

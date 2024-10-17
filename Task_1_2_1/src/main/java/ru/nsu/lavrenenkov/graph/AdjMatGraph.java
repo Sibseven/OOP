@@ -2,134 +2,79 @@ package ru.nsu.lavrenenkov.graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Class for holding graph in Adjacency matrix.
  */
-public class AdjMatGraph implements Graph {
-    private final List<Node> nodes;
+public class AdjMatGraph<T> implements Graph<T> {
+    private final Map<Node<T>, List<Node<T>>> nodes;
+    private final List<Edge<T>> edges;
 
-    /**
-     * Builder.
-     */
+
+
     AdjMatGraph() {
-        this.nodes = new ArrayList<>();
-    }
-
-    /**
-     * Method finds index in ArrayList for given id.
-     *
-     * @param id - id of node
-     *
-     * @return index in ArrayList
-     */
-    private int findNodeIndexByid(int id) {
-        for (int i = 0; i < nodes.size(); i++) {
-            if (nodes.get(i).id == id) {
-                return i;
-            }
-        }
-        return -1;
+        this.nodes = new HashMap<>();
+        this.edges = new ArrayList<>();
     }
 
     @Override
-    public void addNode(int id) throws IllegalArgumentException {
-        if (findNodeIndexByid(id) >= 0) {
+    public void addNode(Node<T> node) throws IllegalArgumentException {
+        if (nodes.containsKey(node)) {
             throw new IllegalArgumentException("Node already exists");
         }
-        for (Node node : nodes) {
-            node.elements.add(0);
-
-        }
-        nodes.add(new Node(id));
-        for (int i = 0; i < nodes.size(); i++) {
-            nodes.get(nodes.size() - 1).elements.add(0);
-        }
-    }
-
-    @Override
-    public void deleteNode(int id) throws IllegalArgumentException {
-        int index = findNodeIndexByid(id);
-        if (index < 0) {
-            throw new IllegalArgumentException("vertex are not present in the graph.");
-        }
-        for (Node node : nodes) {
-            node.elements.remove(index);
-        }
-        nodes.remove(index);
-    }
-
-    @Override
-    public List<Integer> getNeighbors(int id) throws IllegalArgumentException {
-        List<Integer> result = new ArrayList<>();
-        int index = findNodeIndexByid(id);
-        if (index < 0) {
-            throw new IllegalArgumentException("vertex are not present in the graph.");
-        }
-        int i = 0;
-        for (Integer node : nodes.get(index).elements) {
-            if (node == 1) {
-                result.add(nodes.get(i).id);
-            }
-            i++;
-        }
-        return result;
-    }
-
-    @Override
-    public void addEdge(int idFrom, int idTo) throws IllegalArgumentException {
-        int indexFrom = findNodeIndexByid(idFrom);
-        int indexTo = findNodeIndexByid(idTo);
-        if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
-        }
-        nodes.get(indexFrom).elements.set(indexTo, 1);
+        nodes.putIfAbsent(node, new ArrayList<>());
 
     }
 
     @Override
-    public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
-        int indexFrom = findNodeIndexByid(idFrom);
-        int indexTo = findNodeIndexByid(idTo);
-        if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
+    public void deleteNode(Node<T> node) throws IllegalArgumentException {
+        if (!nodes.containsKey(node)) {
+            throw new IllegalArgumentException("No such Node");
         }
-        if (nodes.get(indexFrom).elements.get(indexTo) == 0) {
-            throw new IllegalArgumentException("Edge is not present in the graph.");
+        nodes.remove(node);
+        for (Node<T> n : nodes.keySet()) {
+            nodes.get(n).removeIf(e -> e == node);
         }
-        nodes.get(indexFrom).elements.set(indexTo, 0);
+        edges.removeIf(e -> e.from == node || e.to == node);
     }
 
     @Override
-    public AdjMatGraph readFromFile(File file) {
-        AdjMatGraph graph = new AdjMatGraph();
-        try (Scanner scanner = new Scanner(file)) {
-            int n = scanner.nextInt();
-            int m = scanner.nextInt();
-            for (int i = 1; i < n + 1; i++) {
-                graph.addNode(i);
-            }
-            for (int i = 0; i < m; i++) {
-                int a = scanner.nextInt();
-                int b = scanner.nextInt();
-                graph.addEdge(a, b);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден: " + e.getMessage());
+    public List<Node<T>> getNeighbors(Node<T> node) throws IllegalArgumentException {
+        if (!nodes.containsKey(node)) {
+            throw new IllegalArgumentException("No such Node");
         }
-
-        return graph;
+        return nodes.get(node);
     }
 
     @Override
-    public List<Integer> getNodeIds() {
-        return nodes.stream()
-                .map(node -> node.id) // Получаем id каждой вершины
-                .collect(Collectors.toList());
+    public void addEdge(Edge<T> edge) throws IllegalArgumentException {
+        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+            throw new IllegalArgumentException("No such node/nodes");
+        }
+        nodes.get(edge.from).add(edge.to);
+        edges.add(edge);
+    }
+
+
+    @Override
+    public void deleteEdge(Edge<T> edge) throws IllegalArgumentException {
+        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+            throw new IllegalArgumentException("No such node/nodes");
+        }
+        if (!edges.contains(edge)) {
+            throw new IllegalArgumentException("No such edge");
+        }
+        nodes.get(edge.from).remove(edge.to);
+        edges.remove(edge);
+    }
+
+
+
+    @Override
+    public List<Node<T>> getNodes() {
+        return new ArrayList<>(nodes.keySet());
     }
 
     /**
@@ -139,19 +84,15 @@ public class AdjMatGraph implements Graph {
      */
     public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
-        for (int i = 0; i < nodes.size(); i++) {
-            for (int j = 0; j < nodes.size(); j++) {
-                if (nodes.get(i).elements.get(j) == 1) {
-                    result[i]++;
+        int i = 0;
+        for(Node<T> node: nodes.keySet()) {
+            for(Edge<T> edge : edges) {
+                if(edge.to == node || edge.from == node) {
+                    result[i] ++;
                 }
             }
-            for (Node node : nodes) {
-                if (node.elements.get(i) == 1) {
-                    result[i]++;
-                }
-            }
+            i++;
         }
         return result;
-
     }
 }

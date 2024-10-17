@@ -4,92 +4,132 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Class for testing TopologicalSort.
  */
 public class TopologicalSortTest {
+    private List<Node<Integer>> nodes;
+    private List<Edge<Integer>> edges;
 
+
+    @BeforeEach
+    public void SetUp() {
+        nodes = new ArrayList<>();
+        nodes.add(new Node<>(0));
+        nodes.add(new Node<>(1));
+        nodes.add(new Node<>(2));
+        nodes.add(new Node<>(3));
+        nodes.add(new Node<>(4));
+        nodes.add(new Node<>(5));
+
+        edges = new ArrayList<>();
+        edges.add(new Edge<>(nodes.get(5), nodes.get(0), 1));
+        edges.add(new Edge<>(nodes.get(5), nodes.get(2), 2));
+        edges.add(new Edge<>(nodes.get(2), nodes.get(3), 3));
+        edges.add(new Edge<>(nodes.get(3), nodes.get(1), 4));
+        edges.add(new Edge<>(nodes.get(4), nodes.get(1), 5));
+        edges.add(new Edge<>(nodes.get(4), nodes.get(0), 6));
+
+    }
     @Test
     public void checkAdjListGraph() {
-        AdjListGraph graph = new AdjListGraph();
-        graph.addNode(0);
-        graph.addNode(1);
-        graph.addNode(2);
-        graph.addNode(3);
-        graph.addNode(4);
-        graph.addNode(5);
-        graph.addEdge(5, 0);
-        graph.addEdge(5, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
-        graph.addEdge(4, 1);
-        graph.addEdge(4, 0);
+        AdjListGraph<Integer> graph = new AdjListGraph<>();
+        graph.addNode(nodes.get(0));
+        graph.addNode(nodes.get(1));
+        graph.addNode(nodes.get(2));
+        graph.addNode(nodes.get(3));
+        graph.addNode(nodes.get(4));
+        graph.addNode(nodes.get(5));
+        graph.addEdge(edges.get(0));
+        graph.addEdge(edges.get(1));
+        graph.addEdge(edges.get(2));
+        graph.addEdge(edges.get(3));
+        graph.addEdge(edges.get(4));
+        graph.addEdge(edges.get(5));
 
-        TopologicalSort sort = new TopologicalSort();
-        List<Integer> result = sort.topologicalSort(graph);
-        List<Integer> expected = new ArrayList<>(Arrays.asList(5, 4, 2, 3, 1, 0));
+        TopologicalSort<Integer> sort = new TopologicalSort<>();
+        List<Node<Integer>> result = sort.topologicalSort(graph);
+        List<Node<Integer>> expected = new ArrayList<>();
+        expected.add(nodes.get(5));
+        expected.add(nodes.get(4));
+        expected.add(nodes.get(2));
+        expected.add(nodes.get(3));
+        expected.add(nodes.get(1));
+        expected.add(nodes.get(0));
         assertEquals(expected, result);
     }
 
     @Test
     public void checkAdjMatGraph() {
-        AdjMatGraph graph = new AdjMatGraph();
-        graph.addNode(0);
-        graph.addNode(1);
-        graph.addNode(2);
-        graph.addNode(3);
-        graph.addNode(4);
-        graph.addNode(5);
-        graph.addEdge(5, 0);
-        graph.addEdge(5, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
-        graph.addEdge(4, 1);
-        graph.addEdge(4, 0);
+        AdjMatGraph<Integer> graph = new AdjMatGraph<>();
+        graph.addNode(nodes.get(0));
+        graph.addNode(nodes.get(1));
+        graph.addNode(nodes.get(2));
+        graph.addNode(nodes.get(3));
+        graph.addNode(nodes.get(4));
+        graph.addNode(nodes.get(5));
+        graph.addEdge(edges.get(0));
+        graph.addEdge(edges.get(1));
+        graph.addEdge(edges.get(2));
+        graph.addEdge(edges.get(3));
+        graph.addEdge(edges.get(4));
+        graph.addEdge(edges.get(5));
 
-        TopologicalSort sort = new TopologicalSort();
-        List<Integer> result = sort.topologicalSort(graph);
-        List<Integer> expected = new ArrayList<>(Arrays.asList(5, 4, 2, 3, 1, 0));
+        TopologicalSort<Integer> sort = new TopologicalSort<>();
+        List<Node<Integer>> result = sort.topologicalSort(graph);
+        List<Node<Integer>> expected = new ArrayList<>();
+        expected.add(nodes.get(5));
+        expected.add(nodes.get(4));
+        expected.add(nodes.get(2));
+        expected.add(nodes.get(3));
+        expected.add(nodes.get(1));
+        expected.add(nodes.get(0));
         assertEquals(expected, result);
     }
 
     @Test
     public void checkInMatGraph() {
-        InMatGraph graph = new InMatGraph();
-        graph.addNode(0);
-        graph.addNode(1);
-        graph.addNode(2);
-        graph.addNode(3);
-        graph.addNode(4);
-        graph.addNode(5);
-        graph.addEdge(5, 0);
-        graph.addEdge(5, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
-        graph.addEdge(4, 1);
-        graph.addEdge(4, 0);
+        InMatGraph<Integer> graph = new InMatGraph<>();
+        graph.addNode(nodes.get(0));
+        graph.addNode(nodes.get(1));
+        graph.addNode(nodes.get(2));
+        graph.addNode(nodes.get(3));
+        graph.addNode(nodes.get(4));
+        graph.addNode(nodes.get(5));
+        graph.addEdge(edges.get(0));
+        graph.addEdge(edges.get(1));
+        graph.addEdge(edges.get(2));
+        graph.addEdge(edges.get(3));
+        graph.addEdge(edges.get(4));
+        graph.addEdge(edges.get(5));
 
-        TopologicalSort sort = new TopologicalSort();
-        List<Integer> result = sort.topologicalSort(graph);
-        List<Integer> expected = new ArrayList<>(Arrays.asList(5, 4, 2, 3, 1, 0));
+        TopologicalSort<Integer> sort = new TopologicalSort<>();
+        List<Node<Integer>> result = sort.topologicalSort(graph);
+        List<Node<Integer>> expected = new ArrayList<>();
+        expected.add(nodes.get(5));
+        expected.add(nodes.get(4));
+        expected.add(nodes.get(2));
+        expected.add(nodes.get(3));
+        expected.add(nodes.get(1));
+        expected.add(nodes.get(0));
         assertEquals(expected, result);
     }
 
     @Test
     public void checkBadGraph() {
-        InMatGraph graph = new InMatGraph();
-        graph.addNode(0);
-        graph.addNode(1);
-        graph.addNode(2);
+        InMatGraph<Integer> graph = new InMatGraph<>();
+        graph.addNode(nodes.get(0));
+        graph.addNode(nodes.get(1));
+        graph.addNode(nodes.get(2));
 
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 0);
-        TopologicalSort sort = new TopologicalSort();
+        graph.addEdge(new Edge<>(nodes.get(0), nodes.get(1), 1));
+        graph.addEdge(new Edge<>(nodes.get(1), nodes.get(2), 1));
+        graph.addEdge(new Edge<>(nodes.get(2), nodes.get(0), 1));
+        TopologicalSort<Integer> sort = new TopologicalSort<>();
         assertThrowsExactly(IllegalArgumentException.class, () -> sort.topologicalSort(graph));
     }
 }

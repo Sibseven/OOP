@@ -11,54 +11,58 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 /**
- * Class for testing AdjMatGraph class.
+ * Class for testing InMatGraph class.
  */
 public class AdjMatGraphTest {
-    private AdjMatGraph graph;
-
+    private AdjMatGraph<Integer> graph;
+    private List<Node<Integer>> nodes;
     /**
      * Method for setting up a simple graph.
      */
     @BeforeEach
     public void setUp() {
-        graph = new AdjMatGraph();
-        graph.addNode(1);
-        graph.addNode(2);
-        graph.addNode(3);
+        graph = new AdjMatGraph<>();
+        nodes = new ArrayList<>();
+        nodes.add(new Node<>(1));
+        nodes.add(new Node<>(2));
+        nodes.add(new Node<>(3));
+        graph.addNode(nodes.get(0));
+        graph.addNode(nodes.get(1));
+        graph.addNode(nodes.get(2));
     }
 
     @Test
     public void checkAddNode() {
-        List<Integer> result = graph.getNodeIds();
-        List<Integer> expected = new ArrayList<>(Arrays.asList(1, 2, 3));
-        assertEquals(result, expected);
+        List<Node<Integer>> result = graph.getNodes().stream().toList();
+        assertEquals(nodes, result);
     }
 
     @Test
     public void checkAddEdge() {
-        graph.addEdge(1, 2);
+        graph.addEdge(new Edge<>(nodes.get(0), nodes.get(1), 1));
         int[] result = graph.getEdgesCount();
         int[] expected = {1, 1, 0};
-        assertArrayEquals(result, expected);
+        assertArrayEquals(expected, result);
     }
 
     @Test
     public void checkDeleteNode() {
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.deleteNode(2);
-        List<Integer> result = graph.getNodeIds();
-        List<Integer> expected = new ArrayList<>(Arrays.asList(1, 3));
-        assertEquals(result, expected);
+        graph.addEdge(new Edge<>(nodes.get(0), nodes.get(1), 1));
+        graph.addEdge(new Edge<>(nodes.get(1), nodes.get(2), 1));
+        graph.deleteNode(nodes.get(1));
+        List<Node<Integer>> expected = graph.getNodes();
+        nodes.remove(1);
+        assertEquals(nodes, expected);
     }
 
     @Test
     public void checkDeleteNodeEdges() {
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
-        graph.deleteNode(2);
+        graph.addEdge(new Edge<>(nodes.get(0), nodes.get(1), 1));
+        graph.addEdge(new Edge<>(nodes.get(1), nodes.get(2), 1));
+        graph.addEdge(new Edge<>(nodes.get(2), nodes.get(0), 1));
+        graph.deleteNode(nodes.get(1));
         int[] result = graph.getEdgesCount();
         int[] expected = {1, 1};
         assertArrayEquals(expected, result);
@@ -66,10 +70,11 @@ public class AdjMatGraphTest {
 
     @Test
     public void checkDeleteEdge() {
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
-        graph.deleteEdge(2, 3);
+        Edge<Integer> edge = new Edge<>(nodes.get(1), nodes.get(2), 1);
+        graph.addEdge(new Edge<>(nodes.get(0), nodes.get(1), 1));
+        graph.addEdge(edge);
+        graph.addEdge(new Edge<>(nodes.get(2), nodes.get(0), 1));
+        graph.deleteEdge(edge);
         int[] result = graph.getEdgesCount();
         int[] expected = {2, 1, 1};
         assertArrayEquals(result, expected);
@@ -77,26 +82,30 @@ public class AdjMatGraphTest {
 
     @Test
     public void checkDeleteGetNeighbors() {
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(2, 1);
-        graph.addEdge(3, 1);
-        List<Integer> result = graph.getNeighbors(2);
-        List<Integer> expected = new ArrayList<>();
-        expected.add(1);
-        expected.add(3);
+        graph.addEdge(new Edge<>(nodes.get(0), nodes.get(1), 1));
+        graph.addEdge(new Edge<>(nodes.get(1), nodes.get(2), 1));
+        graph.addEdge(new Edge<>(nodes.get(2), nodes.get(0), 1));
+        graph.addEdge(new Edge<>(nodes.get(1), nodes.get(0), 1));
+        List<Node<Integer>> result = graph.getNeighbors(nodes.get(1));
+        List<Node<Integer>> expected = new ArrayList<>();
+        expected.add(nodes.get(2));
+        expected.add(nodes.get(0));
         assertEquals(expected, result);
     }
 
     @Test
     public void checkReadFromFile() throws URISyntaxException {
-        AdjMatGraph graph = new AdjMatGraph();
+        GraphReader reader = new GraphReader();
         File file = new File(getClass().getClassLoader().getResource("text.txt").toURI());
-        graph = graph.readFromFile(file);
-        List<Integer> result = graph.getNodeIds();
+        AdjMatGraph<Integer> graph = new AdjMatGraph<>();
+        reader.read(graph ,file, Integer::parseInt);
+        List<Node<Integer>> nodes = graph.getNodes();
+        List<Integer> result = new ArrayList<>();
+        for(Node<Integer> node : nodes) {
+            result.add(node.getId());
+        }
         List<Integer> expected = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         assertEquals(result, expected);
-
         int[] resultEdges = graph.getEdgesCount();
         int[] expectedArray = {2, 2, 2, 3, 3};
         assertArrayEquals(expectedArray, resultEdges);

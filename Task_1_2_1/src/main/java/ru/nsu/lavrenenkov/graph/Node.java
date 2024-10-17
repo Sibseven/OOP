@@ -1,24 +1,35 @@
 package ru.nsu.lavrenenkov.graph;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Class for holding one row of Adjacent/Incident matrix or one node of Adjacent list .
- * Fields have no "private" tag on purpose,
- * Because lists of instances of this class will be private themselves.
+ * Class for node.
  */
-public class Node {
-    int id;
-    List<Integer> elements;
+public class Node<T> {
+    private final T id;
 
     /**
      * Builder.
      *
      * @param id - unique id of node
      */
-    Node(int id) {
+    Node(T id) {
         this.id = id;
-        elements = new ArrayList<>();
+    }
+
+    public T getId() {
+        return id;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node<?> node = (Node<?>) o;
+        return id.equals(node.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

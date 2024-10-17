@@ -1,165 +1,77 @@
 package ru.nsu.lavrenenkov.graph;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+
+import java.util.*;
+
 
 /**
  * Incident Matrix implementation of Graph.
  */
-public class InMatGraph implements Graph {
+public class InMatGraph<T> implements Graph<T> {
 
-    private final List<Node> nodes;
+    private List<Node<T>> nodes;
+    private List<Edge<T>> edges;
 
-    /**
-     * Builder.
-     */
+
+
     InMatGraph() {
         this.nodes = new ArrayList<>();
+        this.edges = new ArrayList<>();
     }
-
-
-    /**
-     * Method finds index in ArrayList for given id.
-     *
-     * @param id - id of node
-     *
-     * @return index in ArrayList
-     */
-    private int findNodeIndexByid(int id) {
-        for (int i = 0; i < nodes.size(); i++) {
-            if (nodes.get(i).id == id) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
 
     @Override
-    public void addNode(int id) throws IllegalArgumentException {
-        if (findNodeIndexByid(id) >= 0) {
+    public void addNode(Node<T> node) throws IllegalArgumentException {
+        if(nodes.contains(node)) {
             throw new IllegalArgumentException("Node already exists");
         }
-        nodes.add(new Node(id));
+        nodes.add(node);
     }
 
     @Override
-    public void deleteNode(int id) throws IllegalArgumentException {
-        int index = findNodeIndexByid(id);
-        if (index < 0) {
-            throw new IllegalArgumentException("vertex are not present in the graph.");
+    public void deleteNode(Node<T> node) throws IllegalArgumentException {
+        if(!nodes.contains(node)) {
+            throw new IllegalArgumentException("Node does not exist");
         }
-        List<Integer> edgesToDelete = new ArrayList<>();
-        for (int i = 0; i < nodes.get(index).elements.size(); i++) {
-            if (nodes.get(index).elements.get(i).equals(1)
-                    || nodes.get(index).elements.get(i).equals(-1)) {
-                edgesToDelete.add(i);
-            }
-        }
-        for (Node matNode : nodes) {
-            for (int i = edgesToDelete.size() - 1; i >= 0; i--) {
-                matNode.elements.remove(edgesToDelete.get(i).intValue());
-            }
-        }
-        nodes.remove(index);
+        nodes.remove(node);
+        edges.removeIf(x -> x.from == node || x.to == node);
     }
 
     @Override
-    public List<Integer> getNeighbors(int id) {
-        List<Integer> result = new ArrayList<>();
-        int index = findNodeIndexByid(id);
-        if (index < 0) {
-            throw new IllegalArgumentException("vertex are not present in the graph.");
+    public List<Node<T>> getNeighbors(Node<T> node) throws IllegalArgumentException {
+        if (!nodes.contains(node)) {
+            throw new IllegalArgumentException("No such Node");
         }
-        for (int i = 0; i < nodes.get(index).elements.size(); i++) {
-            if (nodes.get(index).elements.get(i).equals(-1)) {
-                for (Node node : nodes) {
-                    if (node.elements.get(i).equals(1)) {
-                        result.add(node.id);
-                    }
-                }
+        List<Node<T>> result = new ArrayList<>();
+        for (Edge<T> edge : edges) {
+            if(edge.from == node) {
+                result.add(edge.to);
             }
         }
         return result;
-
     }
 
     @Override
-    public void addEdge(int idFrom, int idTo) throws IllegalArgumentException {
-        int indexFrom = findNodeIndexByid(idFrom);
-        int indexTo = findNodeIndexByid(idTo);
-        if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
+    public void addEdge(Edge<T> edge) throws IllegalArgumentException {
+        if(edges.contains(edge)) {
+            throw new IllegalArgumentException("Edge already exists");
         }
-        for (Node node : nodes) {
-            node.elements.add(0);
-        }
-        nodes.get(indexFrom).elements.set(nodes.get(indexFrom).elements.size() - 1, -1);
-        nodes.get(indexTo).elements.set(nodes.get(indexTo).elements.size() - 1, 1);
+        edges.add(edge);
     }
 
-    @Override
-    public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
-        int indexFrom = findNodeIndexByid(idFrom);
-        int indexTo = findNodeIndexByid(idTo);
-        if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
 
+    @Override
+    public void deleteEdge(Edge<T> edge) throws IllegalArgumentException {
+        if (!edges.contains(edge)) {
+            throw new IllegalArgumentException("No such Edge");
         }
-        int i;
-        boolean noEdge = true;
-        for (i = 0; i < nodes.get(0).elements.size(); i++) {
-            if (nodes.get(indexFrom).elements.get(i) == -1
-                    && nodes.get(indexTo).elements.get(i) == 1) {
-                noEdge = false;
-                break;
-            }
-        }
-        if (noEdge) {
-            throw new IllegalArgumentException("edge is not present in the graph.");
-        }
-        for (Node node : nodes) {
-            node.elements.remove(i);
-        }
+        edges.remove(edge);
     }
 
-    /**
-     * Reads graph from file.
-     *
-     * @param file - file to read from.
-     *
-     * @return InMatGraph
-     */
-    @Override
-    public InMatGraph readFromFile(File file) {
-        InMatGraph graph = new InMatGraph();
-        try (Scanner scanner = new Scanner(file)) {
-            int n = scanner.nextInt();
-            int m = scanner.nextInt();
-            for (int i = 1; i < n + 1; i++) {
-                graph.addNode(i);
-            }
-            for (int i = 0; i < m; i++) {
-                int a = scanner.nextInt();
-                int b = scanner.nextInt();
-                graph.addEdge(a, b);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден: " + e.getMessage());
-        }
 
-        return graph;
-    }
 
     @Override
-    public List<Integer> getNodeIds() {
-        return nodes.stream()
-                .map(node -> node.id)
-                .collect(Collectors.toList());
+    public List<Node<T>> getNodes() {
+        return nodes;
     }
 
     /**
@@ -168,11 +80,16 @@ public class InMatGraph implements Graph {
      * @return array of number of edges incident to each node
      */
     public int[] getEdgesCount() {
-        return nodes.stream()
-                .mapToInt(node -> (int) node.elements.stream()
-                        .filter(edge -> edge != 0)
-                        .count())
-                .toArray();
-
+        int[] result = new int[nodes.size()];
+        int i = 0;
+        for(Node<T> node: nodes) {
+            for(Edge<T> edge : edges) {
+                if(edge.to == node || edge.from == node) {
+                    result[i] ++;
+                }
+            }
+            i++;
+        }
+        return result;
     }
 }

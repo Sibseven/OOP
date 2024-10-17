@@ -2,119 +2,79 @@ package ru.nsu.lavrenenkov.graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 /**
  * Class for holding graph in Adjacency lists.
  */
-public class AdjListGraph implements Graph {
-    private final List<Node> nodes;
+public class AdjListGraph<T> implements Graph<T> {
+    private Map<Node<T>, List<Edge<T>>> nodes;
+
 
 
     AdjListGraph() {
-        this.nodes = new ArrayList<>();
-    }
-
-    /**
-     * Method finds index in ArrayList for given id.
-     *
-     * @param id - id of node
-     *
-     * @return index in ArrayList
-     */
-    private int findNodeIndexByid(int id) {
-        for (int i = 0; i < nodes.size(); i++) {
-            if (nodes.get(i).id == id) {
-                return i;
-            }
-        }
-        return -1;
+        this.nodes = new HashMap<>();
     }
 
     @Override
-    public void addNode(int id) throws IllegalArgumentException {
-        if (findNodeIndexByid(id) >= 0) {
+    public void addNode(Node<T> node) throws IllegalArgumentException {
+        if (nodes.containsKey(node)) {
             throw new IllegalArgumentException("Node already exists");
         }
-        nodes.add(new Node(id));
+        nodes.putIfAbsent(node, new ArrayList<>());
 
     }
 
     @Override
-    public void deleteNode(int id) throws IllegalArgumentException {
-        int index = findNodeIndexByid(id);
-        if (index < 0) {
-            throw new IllegalArgumentException("vertex are not present in the graph.");
+    public void deleteNode(Node<T> node) throws IllegalArgumentException {
+        if (!nodes.containsKey(node)) {
+            throw new IllegalArgumentException("No such Node");
         }
-        for (Node node : nodes) {
-            node.elements.removeIf(x -> x == id);
+        nodes.remove(node);
+        for (Node<T> n : nodes.keySet()) {
+            nodes.get(n).removeIf(e -> e.to == node);
         }
-        nodes.remove(index);
     }
 
     @Override
-    public List<Integer> getNeighbors(int id) throws IllegalArgumentException {
-        int index = findNodeIndexByid(id);
-        if (index < 0) {
-            throw new IllegalArgumentException("vertex are not present in the graph.");
+    public List<Node<T>> getNeighbors(Node<T> node) throws IllegalArgumentException {
+        if (!nodes.containsKey(node)) {
+            throw new IllegalArgumentException("No such Node");
         }
-        return nodes.get(index).elements;
+        List<Node<T>> result = new ArrayList<>();
+        for (Edge<T> edge : nodes.get(node)) {
+            result.add(edge.to);
+        }
+        return result;
     }
 
     @Override
-    public void addEdge(int idFrom, int idTo) throws IllegalArgumentException {
-        int indexFrom = findNodeIndexByid(idFrom);
-        int indexTo = findNodeIndexByid(idTo);
-        if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
+    public void addEdge(Edge<T> edge) throws IllegalArgumentException {
+        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+            throw new IllegalArgumentException("No such node/nodes");
         }
-        nodes.get(indexFrom).elements.add(idTo);
-    }
-
-
-    @Override
-    public void deleteEdge(int idFrom, int idTo) throws IllegalArgumentException {
-        int indexFrom = findNodeIndexByid(idFrom);
-        int indexTo = findNodeIndexByid(idTo);
-        if (indexTo < 0 || indexFrom < 0) {
-            throw new IllegalArgumentException("One/both vertices are not present in the graph.");
-        }
-        if (!nodes.get(indexFrom).elements.remove(Integer.valueOf(idTo))) {
-            throw new IllegalArgumentException("edge is not present in the graph.");
-        }
+        nodes.get(edge.from).add(edge);
     }
 
 
     @Override
-    public Graph readFromFile(File file)  {
-        AdjListGraph graph = new AdjListGraph();
-        try (Scanner scanner = new Scanner(file)) {
-            int n = scanner.nextInt();
-            int m = scanner.nextInt();
-            for (int i = 1; i < n + 1; i++) {
-                graph.addNode(i);
-            }
-            for (int i = 0; i < m; i++) {
-                int a = scanner.nextInt();
-                int b = scanner.nextInt();
-                graph.addEdge(a, b);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден: " + e.getMessage());
+    public void deleteEdge(Edge<T> edge) throws IllegalArgumentException {
+        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+            throw new IllegalArgumentException("No such node/nodes");
         }
-
-        return graph;
+        if (!nodes.get(edge.from).contains(edge)) {
+            throw new IllegalArgumentException("No such edge");
+        }
+        nodes.get(edge.from).remove(edge);
     }
 
+
+
     @Override
-    public List<Integer> getNodeIds() {
-        return nodes.stream()
-                .map(node -> node.id)
-                .collect(Collectors.toList());
+    public List<Node<T>> getNodes() {
+        return new ArrayList<>(nodes.keySet());
     }
 
     /**
@@ -124,13 +84,18 @@ public class AdjListGraph implements Graph {
      */
     public int[] getEdgesCount() {
         int[] result = new int[nodes.size()];
-        for (int i = 0; i < result.length; i++) {
-            final int id = nodes.get(i).id;
-            result[i] = nodes.get(i).elements.size();
-            for (int j = 0; j < result.length; j++) {
-                result[i] += nodes.get(j).elements.stream().filter(x -> x == id).count();
+        int i = 0;
+        for (Node<T> node: nodes.keySet()) {
+            for (Node<T> node1 : nodes.keySet()) {
+                for (Edge<T> edge : nodes.get(node1)) {
+                    if (edge.to == node || edge.from == node) {
+                        result[i] ++;
+                    }
+                }
             }
+            i++;
         }
+
         return result;
     }
 }
