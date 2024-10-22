@@ -36,7 +36,7 @@ public class InMatGraphTest {
 
     @Test
     public void checkAddNode() {
-        List<Node<Integer>> result = graph.getNodes().stream().toList();
+        List<Node<Integer>> result = graph.getNodes();
         assertEquals(nodes, result);
     }
 
@@ -106,6 +106,24 @@ public class InMatGraphTest {
             result.add(node.getId());
         }
         List<Integer> expected = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        assertEquals(result, expected);
+        int[] resultEdges = graph.getEdgesCount();
+        int[] expectedArray = {2, 2, 2, 3, 3};
+        assertArrayEquals(expectedArray, resultEdges);
+    }
+
+    @Test
+    public void checkReadFromFile2() throws URISyntaxException {
+        GraphReader reader = new GraphReader();
+        File file = new File(getClass().getClassLoader().getResource("text2.txt").toURI());
+        InMatGraph<Double> graph = new InMatGraph<>();
+        reader.read(graph, file, Double::parseDouble);
+        List<Node<Double>> nodes = graph.getNodes();
+        List<Double> result = new ArrayList<>();
+        for (Node<Double> node : nodes) {
+            result.add(node.getId());
+        }
+        List<Double> expected = new ArrayList<>(Arrays.asList(1.5, 2.5, 3.6, 4.7, 5.7));
         assertEquals(result, expected);
         int[] resultEdges = graph.getEdgesCount();
         int[] expectedArray = {2, 2, 2, 3, 3};

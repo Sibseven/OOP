@@ -31,7 +31,7 @@ public class TopologicalSort<T> {
                 try {
                     topoHelper(i);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Cycle found");
+                    System.err.println("Cycle found");
                     throw e;
                 }
 

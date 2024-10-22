@@ -7,17 +7,7 @@ import java.util.Objects;
  *
  * @param <T> - type of node incident to edge
  */
-public class Edge<T> {
-    Node<T> from;
-    Node<T> to;
-    int weight;
-
-    Edge(Node<T> from, Node<T> to, int weight) {
-        this.from = from;
-        this.to = to;
-        this.weight = weight;
-    }
-
+public record Edge<T>(Node<T> from, Node<T> to, int weight) {
 
     @Override
     public boolean equals(Object o) {

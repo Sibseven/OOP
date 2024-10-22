@@ -37,7 +37,7 @@ public class AdjListGraph<T> implements Graph<T> {
         }
         nodes.remove(node);
         for (Node<T> n : nodes.keySet()) {
-            nodes.get(n).removeIf(e -> e.to == node);
+            nodes.get(n).removeIf(e -> e.to() == node);
         }
     }
 
@@ -48,29 +48,29 @@ public class AdjListGraph<T> implements Graph<T> {
         }
         List<Node<T>> result = new ArrayList<>();
         for (Edge<T> edge : nodes.get(node)) {
-            result.add(edge.to);
+            result.add(edge.to());
         }
         return result;
     }
 
     @Override
     public void addEdge(Edge<T> edge) throws IllegalArgumentException {
-        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+        if (!nodes.containsKey(edge.from()) || !nodes.containsKey(edge.to())) {
             throw new IllegalArgumentException("No such node/nodes");
         }
-        nodes.get(edge.from).add(edge);
+        nodes.get(edge.from()).add(edge);
     }
 
 
     @Override
     public void deleteEdge(Edge<T> edge) throws IllegalArgumentException {
-        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+        if (!nodes.containsKey(edge.from()) || !nodes.containsKey(edge.to())) {
             throw new IllegalArgumentException("No such node/nodes");
         }
-        if (!nodes.get(edge.from).contains(edge)) {
+        if (!nodes.get(edge.from()).contains(edge)) {
             throw new IllegalArgumentException("No such edge");
         }
-        nodes.get(edge.from).remove(edge);
+        nodes.get(edge.from()).remove(edge);
     }
 
 
@@ -92,7 +92,7 @@ public class AdjListGraph<T> implements Graph<T> {
         for (Node<T> node : nodes.keySet()) {
             for (Node<T> node1 : nodes.keySet()) {
                 for (Edge<T> edge : nodes.get(node1)) {
-                    if (edge.to == node || edge.from == node) {
+                    if (edge.to() == node || edge.from() == node) {
                         result[i]++;
                     }
                 }

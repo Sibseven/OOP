@@ -39,7 +39,7 @@ public class AdjMatGraph<T> implements Graph<T> {
         for (Node<T> n : nodes.keySet()) {
             nodes.get(n).removeIf(e -> e == node);
         }
-        edges.removeIf(e -> e.from == node || e.to == node);
+        edges.removeIf(e -> e.from() == node || e.to() == node);
     }
 
     @Override
@@ -52,23 +52,23 @@ public class AdjMatGraph<T> implements Graph<T> {
 
     @Override
     public void addEdge(Edge<T> edge) throws IllegalArgumentException {
-        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+        if (!nodes.containsKey(edge.from()) || !nodes.containsKey(edge.to())) {
             throw new IllegalArgumentException("No such node/nodes");
         }
-        nodes.get(edge.from).add(edge.to);
+        nodes.get(edge.from()).add(edge.to());
         edges.add(edge);
     }
 
 
     @Override
     public void deleteEdge(Edge<T> edge) throws IllegalArgumentException {
-        if (!nodes.containsKey(edge.from) || !nodes.containsKey(edge.to)) {
+        if (!nodes.containsKey(edge.from()) || !nodes.containsKey(edge.to())) {
             throw new IllegalArgumentException("No such node/nodes");
         }
         if (!edges.contains(edge)) {
             throw new IllegalArgumentException("No such edge");
         }
-        nodes.get(edge.from).remove(edge.to);
+        nodes.get(edge.from()).remove(edge.to());
         edges.remove(edge);
     }
 
@@ -90,7 +90,7 @@ public class AdjMatGraph<T> implements Graph<T> {
         int i = 0;
         for (Node<T> node : nodes.keySet()) {
             for (Edge<T> edge : edges) {
-                if (edge.to == node || edge.from == node) {
+                if (edge.to() == node || edge.from() == node) {
                     result[i]++;
                 }
             }

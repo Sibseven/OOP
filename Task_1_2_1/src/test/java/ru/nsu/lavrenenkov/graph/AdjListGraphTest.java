@@ -35,7 +35,7 @@ public class AdjListGraphTest {
 
     @Test
     public void checkAddNode() {
-        List<Node<Integer>> result = graph.getNodes().stream().toList();
+        List<Node<Integer>> result = graph.getNodes();
         assertEquals(nodes, result);
     }
 

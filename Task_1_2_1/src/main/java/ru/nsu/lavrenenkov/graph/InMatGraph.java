@@ -33,7 +33,7 @@ public class InMatGraph<T> implements Graph<T> {
             throw new IllegalArgumentException("Node does not exist");
         }
         nodes.remove(node);
-        edges.removeIf(x -> x.from == node || x.to == node);
+        edges.removeIf(x -> x.from() == node || x.to() == node);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class InMatGraph<T> implements Graph<T> {
         }
         List<Node<T>> result = new ArrayList<>();
         for (Edge<T> edge : edges) {
-            if (edge.from == node) {
-                result.add(edge.to);
+            if (edge.from() == node) {
+                result.add(edge.to());
             }
         }
         return result;
@@ -85,7 +85,7 @@ public class InMatGraph<T> implements Graph<T> {
         int i = 0;
         for (Node<T> node : nodes) {
             for (Edge<T> edge : edges) {
-                if (edge.to == node || edge.from == node) {
+                if (edge.to() == node || edge.from() == node) {
                     result[i]++;
                 }
             }
