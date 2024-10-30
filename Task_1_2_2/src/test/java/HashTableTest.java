@@ -20,7 +20,7 @@ public class HashTableTest {
     @BeforeEach
     public void setUp() {
         hashTable = new HashTable<>();
-        for(int i = 0; i < RANDOM_ELEMS; i++) {
+        for (int i = 0; i < RANDOM_ELEMS; i++) {
             hashTable.addIfAbsent(String.valueOf(i), i);
         }
         hashTable.addIfAbsent("A", 1);
