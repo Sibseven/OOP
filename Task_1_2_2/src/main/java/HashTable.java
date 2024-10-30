@@ -1,5 +1,4 @@
 import java.util.*;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,6 +18,9 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     private List<ArrayList<Entry<K, V>>> table;
 
 
+    /**
+     * Builder.
+     */
     public HashTable() {
         this.numOfElements = 0;
         this.numOfChanges = 0;
@@ -53,7 +55,7 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     }
 
     /**
-     * Adds key-value pair to hashTable,
+     * Adds key-value pair to hashTable.
      * if a value with such key exist does nothing
      *
      * @param key - key
@@ -74,6 +76,13 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     }
 
 
+    /**
+     * Get value by key.
+     *
+     * @param key - key to get value by
+     *
+     * @return value of type V
+     */
     public @Nullable V get(K key) {
         int hash = key.hashCode();
         int index = hash % capacity;
@@ -230,8 +239,14 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HashTable<?, ?> hashTable)) return false;
-        return numOfElements == hashTable.numOfElements && capacity == hashTable.capacity && Objects.equals(table, hashTable.table);
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof HashTable<?, ?> hashTable)) {
+            return false;
+        }
+        return numOfElements == hashTable.numOfElements
+                && capacity == hashTable.capacity
+                && Objects.equals(table, hashTable.table);
     }
 }
