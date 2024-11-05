@@ -15,20 +15,19 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     private int numOfElements;
     private int numOfChanges;
     private int capacity;
-    private List<ArrayList<Entry<K, V>>> table;
+    private List<Entry<K, V>>[] table;
 
 
     /**
      * Builder.
      */
+    @SuppressWarnings("unchecked")
     public HashTable() {
         this.numOfElements = 0;
         this.numOfChanges = 0;
         this.capacity = 16;
-        this.table = new ArrayList<>();
-        for (int i = 0; i < this.capacity; i++) {
-            this.table.add(new ArrayList<>());
-        }
+        this.table =(ArrayList<Entry<K, V>>[]) new ArrayList[this.capacity];
+
     }
 
     /**
@@ -70,7 +69,10 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         }
         int hash = key.hashCode();
         int index = hash % capacity;
-        table.get(index).add(new Entry<>(key, value));
+        if(table[index] == null) {
+            table[index] = new ArrayList<>();
+        }
+        table[index].add(new Entry<>(key, value));
         this.numOfElements++;
         numOfChanges++;
     }
@@ -86,7 +88,10 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     public @Nullable V get(K key) {
         int hash = key.hashCode();
         int index = hash % capacity;
-        for (Entry<K, V> entry : table.get(index)) {
+        if (table[index] == null) {
+            return null;
+        }
+        for (Entry<K, V> entry : table[index]) {
             if (entry.key.equals(key)) {
                 return entry.value;
             }
@@ -104,7 +109,10 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     public boolean contains(K key) {
         int hash = key.hashCode();
         int index = hash % capacity;
-        for (Entry<K, V> entry : table.get(index)) {
+        if(table[index] == null) {
+            return false;
+        }
+        for (Entry<K, V> entry : table[index]) {
             if (entry.key.equals(key)) {
                 return true;
             }
@@ -120,8 +128,13 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
      * @param value - value
      */
     public void update(K key, V value) {
-        remove(key, get(key));
-        addIfAbsent(key, value);
+        if (contains(key)) {
+            int hash = key.hashCode();
+            int index = hash % capacity;
+            table[index].removeIf(entry -> entry.key.equals(key));
+            table[index].add(new Entry<>(key, value));
+            this.numOfChanges++;
+        }
     }
 
     /**
@@ -136,7 +149,7 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         numOfChanges++;
         int hash = key.hashCode();
         int index = hash % capacity;
-        table.get(index).removeIf(x -> x.key.equals(key) && x.value.equals(value));
+        table[index].removeIf(x -> x.key.equals(key) && x.value.equals(value));
     }
 
     /**
@@ -144,15 +157,19 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
      *
      * @param newCapacity - newCapacity
      */
+    @SuppressWarnings("unchecked")
     private void resize(int newCapacity) {
         capacity = newCapacity;
-        ArrayList<ArrayList<Entry<K, V>>> newTable = new ArrayList<>();
-        for (int i = 0; i < capacity; i++) {
-            newTable.add(new ArrayList<>());
-        }
-        for (ArrayList<Entry<K, V>> list : table) {
+        List<Entry<K, V>>[] newTable = (ArrayList<Entry<K, V>>[]) new ArrayList[this.capacity];
+        for (List<Entry<K, V>> list : table) {
+            if(list == null) {
+                continue;
+            }
             for (Entry<K, V> entry : list) {
-                newTable.get(entry.value.hashCode() % capacity).add(entry);
+                if(newTable[entry.value.hashCode() % capacity] == null) {
+                    newTable[entry.value.hashCode() % capacity] = new ArrayList<>();
+                }
+                newTable[entry.value.hashCode() % capacity].add(entry);
             }
         }
         table = newTable;
@@ -187,21 +204,23 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
 
         @Override
         public boolean hasNext() {
-            check();
             return indexCount < numOfElements;
         }
 
         @Override
         public Entry<K, V> next() {
             check();
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
             do {
                 indexCell++;
-                if (indexCell >= table.get(indexChain).size()) {
-                    indexChain = (indexChain + 1) % table.size();
+                if (table[indexChain] == null || indexCell >= table[indexChain].size()) {
+                    indexChain = (indexChain + 1) % HashTable.this.capacity;
                     indexCell = 0;
                 }
-            } while (table.get(indexChain).isEmpty());
-            now = table.get(indexChain).get(indexCell);
+            } while (table[indexChain] == null || table[indexChain].isEmpty());
+            now = table[indexChain].get(indexCell);
             indexCount++;
             return now;
         }
@@ -222,7 +241,10 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (ArrayList<Entry<K, V>> list : table) {
+        for (List<Entry<K, V>> list : table) {
+            if (list == null) {
+                continue;
+            }
             for (Entry<K, V> entry : list) {
                 sb.append(entry.toString());
                 sb.append(";");
@@ -247,6 +269,6 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         }
         return numOfElements == hashTable.numOfElements
                 && capacity == hashTable.capacity
-                && Objects.equals(table, hashTable.table);
+                && Arrays.equals(table, hashTable.table);
     }
 }
