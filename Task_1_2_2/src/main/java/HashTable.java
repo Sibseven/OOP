@@ -26,7 +26,7 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         this.numOfElements = 0;
         this.numOfChanges = 0;
         this.capacity = 16;
-        this.table =(ArrayList<Entry<K, V>>[]) new ArrayList[this.capacity];
+        this.table = (ArrayList<Entry<K, V>>[]) new ArrayList[this.capacity];
 
     }
 
@@ -69,7 +69,7 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         }
         int hash = key.hashCode();
         int index = hash % capacity;
-        if(table[index] == null) {
+        if (table[index] == null) {
             table[index] = new ArrayList<>();
         }
         table[index].add(new Entry<>(key, value));
@@ -109,7 +109,7 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
     public boolean contains(K key) {
         int hash = key.hashCode();
         int index = hash % capacity;
-        if(table[index] == null) {
+        if (table[index] == null) {
             return false;
         }
         for (Entry<K, V> entry : table[index]) {
@@ -162,11 +162,11 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         capacity = newCapacity;
         List<Entry<K, V>>[] newTable = (ArrayList<Entry<K, V>>[]) new ArrayList[this.capacity];
         for (List<Entry<K, V>> list : table) {
-            if(list == null) {
+            if (list == null) {
                 continue;
             }
             for (Entry<K, V> entry : list) {
-                if(newTable[entry.value.hashCode() % capacity] == null) {
+                if (newTable[entry.value.hashCode() % capacity] == null) {
                     newTable[entry.value.hashCode() % capacity] = new ArrayList<>();
                 }
                 newTable[entry.value.hashCode() % capacity].add(entry);
@@ -210,7 +210,7 @@ public class HashTable<K, V>  implements Iterable<HashTable.Entry<K, V>> {
         @Override
         public Entry<K, V> next() {
             check();
-            if(!hasNext()) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             do {
