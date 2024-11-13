@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class for funding indexes of substring in a string
+ * Class for funding indexes of substring in a string.
  */
 public class SubstringFinder {
     private static int  BUFFER_SIZE = 1200000;
     private static int PRIME = 101;
 
     /**
-     * Method to decode first n UTF-8 chars from byte array
+     * Method to decode first n UTF-8 chars from byte array.
      *
      * @param bytes - byte arr
      *
@@ -29,7 +29,7 @@ public class SubstringFinder {
      *
      * @throws CharacterCodingException - if at least one char is not in UTF-8
      */
-    private static Result decodeNCharacters(byte[] bytes, int n) throws CharacterCodingException {
+    private static Result decodeNcharacters(byte[] bytes, int n) throws CharacterCodingException {
         CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
         ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
         CharBuffer charBuffer = CharBuffer.allocate(n);
@@ -39,7 +39,7 @@ public class SubstringFinder {
 
         while (charsRead < n && byteBuffer.hasRemaining()) {
             // Сохраняем позицию байтбуфера перед декодированием
-            int positionBefore = byteBuffer.position();
+            bytesUsed -= byteBuffer.position();
             CoderResult result = decoder.decode(byteBuffer, charBuffer, false);
 
             // Проверка на недопустимую последовательность байтов или ошибку декодирования
@@ -56,7 +56,7 @@ public class SubstringFinder {
             charBuffer.clear();
 
             // Подсчитываем количество использованных байтов
-            bytesUsed += byteBuffer.position() - positionBefore;
+            bytesUsed += byteBuffer.position();
 
             // Останавливаем, если достигли n символов
             if (charsRead == n) break;
@@ -71,7 +71,7 @@ public class SubstringFinder {
     };
 
     /**
-     * Method to perform Robin-Carp algorithm
+     * Method to perform Robin-Carp algorithm.
      *
      * @param text - text to find in
      *
@@ -79,7 +79,7 @@ public class SubstringFinder {
      *
      * @return - list of indexes from which pattern is matched
      */
-    private List<Long> Robin(String text, String substring) {
+    private List<Long> robin(String text, String substring) {
         List<Long> result = new ArrayList<>();
         int textLength = text.length();
         int substringLength = substring.length();
@@ -105,7 +105,7 @@ public class SubstringFinder {
     }
 
     /**
-     * Calculates hash of string for Robin Carp algorithm
+     * Calculates hash of string for Robin Carp algorithm.
      *
      * @param str - string of which hash is calculated
      *
@@ -136,7 +136,8 @@ public class SubstringFinder {
      *
      * @return - new hash value
      */
-    private long recalculateHash(String text, long oldHash, int oldIndex, int newIndex, int length) {
+    private long recalculateHash(String text, long oldHash, int oldIndex,
+                                              int newIndex, int length) {
         long newHash = oldHash - text.charAt(oldIndex);
         newHash /= PRIME;
         newHash += (long) (text.charAt(newIndex) * Math.pow(PRIME, length - 1));
@@ -164,23 +165,23 @@ public class SubstringFinder {
             while (byteOffset < fileSize) {
                 long remaining = fileSize - byteOffset;
                 int size = (int) Math.min(BUFFER_SIZE * 4 + substring.length() * 4, remaining);
-                MappedByteBuffer buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, byteOffset, size);
+                MappedByteBuffer buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY,
+                                                          byteOffset, size);
                 byte[] bytes = new byte[size];
                 buffer.get(bytes);
-                Result res = decodeNCharacters(bytes, BUFFER_SIZE + substring.length());
+                Result res = decodeNcharacters(bytes, BUFFER_SIZE + substring.length());
                 String str = res.str;
-                ArrayList<Long> intermediate = (ArrayList<Long>) Robin(str, substring);
-                for(Long now: intermediate) {
+                ArrayList<Long> intermediate = (ArrayList<Long>) robin(str, substring);
+                for (Long now : intermediate) {
                     result.add(now + indexOffset);
                 }
                 indexOffset += str.length() - substring.length() + 1;
                 byteOffset += res.bytesUsed - res.str.substring(BUFFER_SIZE + 1).getBytes().length;
-                if(size == remaining) {
+                if (size == remaining) {
                     break;
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
         return result;
