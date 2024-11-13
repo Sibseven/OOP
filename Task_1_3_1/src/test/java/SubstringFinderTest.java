@@ -1,14 +1,15 @@
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+/**
+ * Class for testing.
+ */
 public class SubstringFinderTest {
     ArrayList<Long> check = new ArrayList<>();
 
@@ -17,26 +18,35 @@ public class SubstringFinderTest {
 
         String filePath = "./src/test/resources/test.txt";
         String targetSubstring = "fileno1";
-        long totalSizeInBytes = 1L * 1024L * 1024L * 1024L;
+        long totalSizeInBytes = 16L * 1024L * 1024L * 1024L;
         File file = new File(filePath);
-        file.deleteOnExit();
         file.createNewFile();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            long bytesWritten = 0;
-            long offset = 0;
+
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            long currentOffset = 0;
+            StringBuilder sb = new StringBuilder();
 
             while (file.length() < totalSizeInBytes) {
-                writer.append("Текст без подстроки.\n");
-                writer.append("Другая строка.\n");
-                bytesWritten += 21 + 15;
-                int rand = (int) (Math.random() * 10000);
-                if(rand == 1) {
-                    writer.append("Немного текста с подстрокой: " + targetSubstring + "\n");
-                    check.add(bytesWritten + 29);
-                    bytesWritten += 29 + targetSubstring.length() + 1;
-                }
+                sb.append("Текст без подстроки.\n");
+                sb.append("Другая строка.\n");
+                currentOffset += 36;
+                int rand = (int) (Math.random() * 100);
 
+                if (rand == 1) {
+                    currentOffset += 29;
+                    sb.append("Немного текста с подстрокой: ").append(targetSubstring).append("\n");
+                    check.add(currentOffset);
+                    currentOffset += 1 + targetSubstring.length();
+                }
+                if (sb.length() > 1024 * 1024 * 10) {
+                    writer.write(sb.toString());
+                    sb.setLength(0);
+                }
+            }
+            if (!sb.isEmpty()) {
+                writer.write(sb.toString());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -45,18 +55,28 @@ public class SubstringFinderTest {
     }
 
     @Test
-    public void findSubstring() {
+    public void findSubstringBig() {
         SubstringFinder substringFinder = new SubstringFinder();
         ArrayList<Long> result = new ArrayList<>();
         try {
-            result = substringFinder.find("./src/test/resources/test.txt", "fileno1");
+            result = (ArrayList<Long>) substringFinder.find("./src/test/resources/test.txt", "fileno1");
         }
         catch (Exception e) {
+            System.out.println(e);
             assert false;
         }
         assertEquals(check, result);
     }
 
+    @Test
+    public void findSubstring2() throws IOException {
+        SubstringFinder substringFinder = new SubstringFinder();
+        ArrayList<Long> result = new ArrayList<>();
+        ArrayList<Long> check = new ArrayList<>();
+        check.add(3L);
+        result = (ArrayList<Long>) substringFinder.find("./src/test/resources/tex1", "имТ");
+        assertEquals(check, result);
+    }
     @AfterAll
     public static void tearDown() {
         File file = new File("./src/test/resources/test.txt");
