@@ -59,7 +59,9 @@ public class SubstringFinder {
             bytesUsed += byteBuffer.position();
 
             // Останавливаем, если достигли n символов
-            if (charsRead == n) break;
+            if (charsRead == n){
+                break;
+            }
         }
 
         // Возвращаем результат как строку и количество использованных байтов
@@ -68,7 +70,7 @@ public class SubstringFinder {
 
     private static record Result(String str, int bytesUsed){
 
-    };
+    }
 
     /**
      * Method to perform Robin-Carp algorithm.

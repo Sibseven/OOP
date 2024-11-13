@@ -61,9 +61,8 @@ public class SubstringFinderTest {
         SubstringFinder substringFinder = new SubstringFinder();
         ArrayList<Long> result = new ArrayList<>();
         try {
-            result = (ArrayList<Long>) substringFinder.find("./src/test/resources/test.txt", "fileno1");
-        }
-        catch (Exception e) {
+            result = substringFinder.find("./src/test/resources/test.txt", "fileno1");
+        } catch (Exception e) {
             System.out.println(e);
             assert false;
         }
