@@ -15,8 +15,9 @@ import java.util.List;
  * Class for funding indexes of substring in a string.
  */
 public class SubstringFinder {
-    private static int  BUFFER_SIZE = 1200000;
+    private static int BUFFER_SIZE_DEFAULT = 1200000;
     private static int PRIME = 101;
+    private int bufferSize = BUFFER_SIZE_DEFAULT;
 
     /**
      * Method to decode first n UTF-8 chars from byte array.
@@ -59,7 +60,7 @@ public class SubstringFinder {
             bytesUsed += byteBuffer.position();
 
             // Останавливаем, если достигли n символов
-            if (charsRead == n){
+            if (charsRead == n) {
                 break;
             }
         }
@@ -157,7 +158,7 @@ public class SubstringFinder {
      * @return - list of occurrences indexes of substring in fileName file
      *
      */
-    public ArrayList<Long> find(String fileName, String substring) {
+    public List<Long> find(String fileName, String substring) {
         ArrayList<Long> result = new ArrayList<>();
         Path path = Paths.get(fileName);
         try (FileChannel fileChannel = FileChannel.open(path, StandardOpenOption.READ)) {
@@ -166,20 +167,20 @@ public class SubstringFinder {
             long indexOffset = 0;
             while (byteOffset < fileSize) {
                 long remaining = fileSize - byteOffset;
-                int size = (int) Math.min(BUFFER_SIZE * 4 + substring.length() * 4, remaining);
+                int size = (int) Math.min(bufferSize * 4 + substring.length() * 4, remaining);
                 MappedByteBuffer buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY,
                                                           byteOffset, size);
                 byte[] bytes = new byte[size];
                 buffer.get(bytes);
-                Result res = decodeNcharacters(bytes, BUFFER_SIZE + substring.length());
+                Result res = decodeNcharacters(bytes, bufferSize + substring.length());
                 String str = res.str;
                 ArrayList<Long> intermediate = (ArrayList<Long>) robin(str, substring);
                 for (Long now : intermediate) {
                     result.add(now + indexOffset);
                 }
                 indexOffset += str.length() - substring.length() + 1;
-                byteOffset += res.bytesUsed - res.str.substring(BUFFER_SIZE + 1).getBytes().length;
-                if (size == remaining) {
+                byteOffset += res.bytesUsed - res.str.substring(bufferSize + 1).getBytes().length;
+                if (byteOffset >= fileSize - res.str.substring(bufferSize + 1).getBytes().length) {
                     break;
                 }
             }
@@ -187,6 +188,24 @@ public class SubstringFinder {
             System.out.println(e);
         }
         return result;
+    }
+
+    /**
+     * Sets new buffer size.
+     *
+     * @param size > 0 - size of new buffer in bytes
+     */
+    public void setBufferSize(int size) {
+        if (size > 0) {
+            this.bufferSize = size;
+        }
+    }
+
+    /**
+     * Resets buffer size to default 120000 bytes.
+     */
+    public void resetBufferSize() {
+        this.bufferSize = BUFFER_SIZE_DEFAULT;
     }
 }
 
