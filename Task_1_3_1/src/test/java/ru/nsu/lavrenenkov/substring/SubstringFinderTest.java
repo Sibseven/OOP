@@ -1,3 +1,5 @@
+package ru.nsu.lavrenenkov.substring;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;

@@ -1,3 +1,5 @@
+package ru.nsu.lavrenenkov.substring;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
