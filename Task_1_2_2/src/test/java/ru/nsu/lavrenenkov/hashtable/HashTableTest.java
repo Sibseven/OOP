@@ -1,3 +1,4 @@
+package ru.nsu.lavrenenkov.hashtable;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ConcurrentModificationException;
