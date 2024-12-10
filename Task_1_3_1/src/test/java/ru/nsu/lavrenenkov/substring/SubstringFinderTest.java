@@ -31,7 +31,7 @@ public class SubstringFinderTest {
 
         String targetSubstring = "fileno1";
         long totalSizeInBytes = 8L * 1024L * 1024L * 1024L;
-        Path resourcesPath = Paths.get("src", "test", "resources");
+        Path resourcesPath = Paths.get(".");
         File resourcesDir = resourcesPath.toFile();
         if (!resourcesDir.exists() && !resourcesDir.mkdirs()) {
             throw new IOException("Failed to create resources directory");
