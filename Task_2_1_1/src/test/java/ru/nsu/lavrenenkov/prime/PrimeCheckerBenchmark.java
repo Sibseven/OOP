@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static ru.nsu.lavrenenkov.prime.PrimeChecker.*;
-
 
 /**
  * Benchmark for PrimeChecker.
@@ -37,7 +35,7 @@ public class PrimeCheckerBenchmark {
             List<Integer> numbers = reader.lines()
                     .map(Integer::parseInt)
                     .filter(checker::isPrime)
-                    .collect(Collectors.toList());
+                    .toList();
             this.nums = numbers.stream().mapToInt(i -> i).toArray();
         }
     }
