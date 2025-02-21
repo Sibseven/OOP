@@ -23,7 +23,8 @@ public class PrimeCheckerTest {
      */
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
-        InputStream inputStream = PrimeCheckerTest.class.getClassLoader().getResourceAsStream("810BigPrimes");
+        InputStream inputStream = PrimeCheckerTest.class
+                .getClassLoader().getResourceAsStream("810BigPrimes");
 
         if (inputStream == null) {
             throw new IOException("Файл не найден в ресурсах!");
