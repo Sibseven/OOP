@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 
 import static ru.nsu.lavrenenkov.prime.PrimeChecker.*;
 
+
+/**
+ * Benchmark for PrimeChecker.
+ */
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -19,60 +23,78 @@ import static ru.nsu.lavrenenkov.prime.PrimeChecker.*;
 @Measurement(iterations = 20, time = 3, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 public class PrimeCheckerBenchmark {
-    private static int[] nums;
+    private int[] nums;
 
     @Setup(Level.Trial)
-    public static void setup() throws IOException {
+    public void setup() throws IOException {
         InputStream inputStream = PrimeCheckerTest.class.getClassLoader().getResourceAsStream("810BigPrimes");
 
         if (inputStream == null) {
             throw new IOException("Файл не найден в ресурсах!");
         }
-
+        PrimeChecker checker = new PrimeChecker();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             List<Integer> numbers = reader.lines()
                     .map(Integer::parseInt)
-                    .filter(PrimeChecker::isPrime)
+                    .filter(checker::isPrime)
                     .collect(Collectors.toList());
-            nums = numbers.stream().mapToInt(i -> i).toArray();
+            this.nums = numbers.stream().mapToInt(i -> i).toArray();
         }
     }
     @Benchmark
     public void testMethod() {
-        boolean result1 = containsNonPrimeSequential(nums);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeSequential(nums);
+        System.out.println("Sequential is prime calls " + checker.getCounter());
     }
 
     @Benchmark
     public void thread2() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 2);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 2);
+        System.out.println("2 Thread is prime calls " + checker.getCounter());
     }
 
     @Benchmark
     public void thread3() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 3);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 3);
+        System.out.println("3 Thread is prime calls " + checker.getCounter());
     }
     @Benchmark
     public void thread4() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 4);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 4);
+        System.out.println("4 Thread is prime calls " + checker.getCounter());
     }
     @Benchmark
     public void thread5() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 5);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 5);
+        System.out.println("5 Thread is prime calls " + checker.getCounter());
     }
     @Benchmark
     public void thread6() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 6);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 6);
+        System.out.println("6 Thread is prime calls " + checker.getCounter());
     }
     @Benchmark
     public void thread7() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 7);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 7);
+        System.out.println("7 Thread is prime calls " + checker.getCounter());
     }
     @Benchmark
     public void thread8() throws InterruptedException {
-        boolean result1 = containsNonPrimeThread(nums, 8);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.containsNonPrimeThread(nums, 8);
+        System.out.println("8 Thread is prime calls " + checker.getCounter());
     }
     @Benchmark
     public void parallelStream() {
-        boolean result1 = hasNonPrimeParallelStream(nums);
+        PrimeChecker checker = new PrimeChecker();
+        boolean result1 = checker.hasNonPrimeParallelStream(nums);
+        System.out.println("Parallel stream is prime calls " + checker.getCounter());
     }
 }
