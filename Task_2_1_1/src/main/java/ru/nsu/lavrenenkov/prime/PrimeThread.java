@@ -12,6 +12,7 @@ public class PrimeThread extends Thread {
     private PrimeChecker checker = new PrimeChecker();
     @Getter
     private boolean result;
+
     public PrimeThread(int[] numbers) {
         this.numbers = numbers;
     }
@@ -19,7 +20,7 @@ public class PrimeThread extends Thread {
     @Override
     public void run() {
         for (int number : numbers) {
-            if(!checker.isPrime(number)) {
+            if (!checker.isPrime(number)) {
                 result = true;
             }
         }

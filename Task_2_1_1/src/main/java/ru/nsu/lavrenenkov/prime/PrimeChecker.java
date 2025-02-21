@@ -1,9 +1,10 @@
 package ru.nsu.lavrenenkov.prime;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.Getter;
+
+
 
 /**
  * Class for checking if array contains non-Prime numbers.
@@ -15,7 +16,7 @@ public class PrimeChecker {
     private int countThreads = 0;
 
     /**
-     * Method to determine if at least one num in array is not prime
+     * Method to determine if at least one num in array is not prime.
      *
      * @param numbers - array to be checked
      *
@@ -49,6 +50,7 @@ public class PrimeChecker {
     }
 
     /**
+     * Method for Thread calculations.
      *
      * @param numbers - to be checked
      *
@@ -58,7 +60,8 @@ public class PrimeChecker {
      *
      * @throws InterruptedException - if number is interrupted
      */
-    public boolean containsNonPrimeThread(int[] numbers, int numThreads) throws InterruptedException {
+    public boolean containsNonPrimeThread(int[] numbers, int numThreads)
+            throws InterruptedException {
         final int length = numbers.length;
         final int chunkSize = (int) Math.ceil(length / (double) numThreads);
         PrimeThread[] threads = new PrimeThread[numThreads];
@@ -90,7 +93,8 @@ public class PrimeChecker {
     }
 
     /**
-     * Method for getting counter of isPrimecalls
+     * Method for getting counter of isPrime calls.
+     *
      * @return - counter value
      */
     public int getCounter() {
