@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.lavrenenkov.prime","l":"PrimeChecker"},{"p":"ru.nsu.lavrenenkov.prime","l":"PrimeThread"}];updateSearchResults();
