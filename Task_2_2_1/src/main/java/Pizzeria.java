@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Random;
 import lombok.Getter;
 
-
+/**
+ * Class for pizzeria.
+ */
 public class Pizzeria {
     @Getter
     private boolean working = true;
@@ -18,11 +20,19 @@ public class Pizzeria {
     private int workDuratuion;
 
 
+    /**
+     * Default main.
+     *
+     * @param args - default args
+     */
     public static void main(String[] args)  {
         Pizzeria pizzeria = new Pizzeria();
         pizzeria.start();
     }
 
+    /**
+     * Method for reading info about pizzeria from json.
+     */
     private void readConfig() {
         File config = null;
         try {
@@ -39,37 +49,42 @@ public class Pizzeria {
         }
         int storageCapacity = pc.getStorage_capacity();
         this.warehouse = new Warehouse(storageCapacity);
-        int id_courier = 1;
-        for(CourierConfig courierConfig : pc.getCouriers()) {
-            this.couriers.add(new Courier(warehouse, courierConfig.getCapacity(), this, id_courier));
-            id_courier++;
+        int idCourier = 1;
+        for (CourierConfig courierConfig : pc.getCouriers()) {
+            this.couriers.add(new Courier(warehouse, courierConfig.getCapacity(), this, idCourier));
+            idCourier++;
         }
-        int id_baker = 1;
-        for(BakerConfig bakerConfig : pc.getBakers()) {
-            this.bakers.add(new Baker(id_baker, bakerConfig.getSpeed(), warehouse, orderQueue, this));
-            id_baker++;
+        int idBaker = 1;
+        for (BakerConfig bakerConfig : pc.getBakers()) {
+            this.bakers.add(new Baker(idBaker, bakerConfig.getSpeed(), warehouse, orderQueue, this));
+            idBaker++;
         }
         this.workDuratuion = pc.getWorking_time();
     }
 
+    /**
+     * Method for running pizzeria.
+     *
+     * Creates threads for bakers and couriers, simulates order creation.
+     */
     public void start()  {
 
         readConfig();
         List<Thread> threads_courier = new ArrayList<>();
-        for(Courier courier : this.couriers) {
+        for (Courier courier : this.couriers) {
             threads_courier.add(new Thread(courier));
             threads_courier.getLast().start();
         }
 
         List<Thread> threads_baker = new ArrayList<>();
-        for(Baker baker : this.bakers) {
+        for (Baker baker : this.bakers) {
             threads_baker.add(new Thread(baker));
             threads_baker.getLast().start();
         }
 
         long startTime = System.currentTimeMillis();
 
-        int id_order = 1;
+        int idOrder = 1;
         Random rand = new Random();
         while (System.currentTimeMillis() - startTime < workDuratuion) {
             try {
@@ -77,14 +92,15 @@ public class Pizzeria {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Order order = new Order(id_order);
+            Order order = new Order(idOrder);
             orderQueue.add(order);
-            System.out.println("Заказ " + id_order + " Поступил");
-            id_order++;
+            System.out.println("Заказ " + idOrder + " Поступил");
+            idOrder++;
         }
         this.working = false;
 
-        for(Thread thread : threads_courier) {
+
+        for (Thread thread : threads_baker) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
@@ -92,13 +108,15 @@ public class Pizzeria {
             }
         }
 
-        for(Thread thread : threads_baker) {
+        for (Thread thread : threads_courier) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+
+        System.out.print("ВВВ");
     }
 
 

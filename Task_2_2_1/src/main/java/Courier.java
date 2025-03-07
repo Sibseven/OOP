@@ -3,6 +3,9 @@ import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class Courier implements Runnable {
     private int id;
     private int capacity;
@@ -30,10 +33,10 @@ public class Courier implements Runnable {
 
     @Override
     public void run() {
-        while(boss.isWorking()) {
+        while (boss.isWorking()) {
             takePizzas();
         }
-        while(wh.size() > 0) {
+        while (wh.size() > 0) {
             takePizzas();
         }
 
@@ -44,10 +47,10 @@ public class Courier implements Runnable {
      */
     private void takePizzas() {
         List<Order> load = new ArrayList<Order>();
-        for(int i = 0; i < capacity; i++) {
+        for (int i = 0; i < capacity; i++) {
             Order order = wh.remove();
             load.add(order);
-            if(wh.size() == 0) {
+            if (wh.size() == 0) {
                 break;
             }
         }
@@ -65,7 +68,7 @@ public class Courier implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        for(Order order : load) {
+        for (Order order : load) {
             System.out.println("Заказ " + order.getId() + " Доставлен");
         }
     }

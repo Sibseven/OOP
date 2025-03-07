@@ -23,6 +23,11 @@ public class PizzeriaTest {
     @Test
     public void test() {
         pizzeria.start();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         String output = outputStream.toString();
         assertTrue(output.contains("Доставлен"));
         assertTrue(output.contains("испечен"));

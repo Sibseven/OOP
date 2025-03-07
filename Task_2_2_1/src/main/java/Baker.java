@@ -41,6 +41,7 @@ public class Baker implements Runnable {
             Order order = orderQueue.remove();
             bake(order);
         }
+        System.out.println("All baked");
     }
 
 
