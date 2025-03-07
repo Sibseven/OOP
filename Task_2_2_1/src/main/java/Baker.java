@@ -37,7 +37,8 @@ public class Baker implements Runnable {
             Order order = orderQueue.remove();
             bake(order);
         }
-        while (orderQueue.size() > 0) {
+        System.out.println("WorkEND");
+        while (orderQueue.size() != 0) {
             Order order = orderQueue.remove();
             bake(order);
         }
@@ -51,6 +52,9 @@ public class Baker implements Runnable {
      * @param order - order to bake
      */
     private void bake(Order order)  {
+        if (order == null) {
+            return;
+        }
         try {
             sleep(speed);
         } catch (InterruptedException e) {

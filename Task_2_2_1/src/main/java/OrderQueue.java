@@ -6,6 +6,11 @@ import java.util.Queue;
  */
 public class OrderQueue {
     private final Queue<Order> orders = new LinkedList<>();
+    private Pizzeria pizzeria;
+
+    public OrderQueue(Pizzeria pizzeria) {
+        this.pizzeria = pizzeria;
+    }
 
     /**
      * Method for sync add to Queue.
@@ -14,7 +19,7 @@ public class OrderQueue {
      */
     public synchronized void add(Order order) {
         orders.add(order);
-        notify();
+        notifyAll();
     }
 
     /**
@@ -23,7 +28,7 @@ public class OrderQueue {
      * @return removed order.
      */
     public synchronized Order remove() {
-        while (orders.isEmpty()) {
+        while (orders.isEmpty() && pizzeria.isWorking()) {
             try {
                 wait();
             } catch (InterruptedException e) {

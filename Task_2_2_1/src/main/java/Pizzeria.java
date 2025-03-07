@@ -16,7 +16,7 @@ public class Pizzeria {
     private final List<Baker> bakers = new ArrayList<Baker>();
     private final List<Courier> couriers = new ArrayList<Courier>();
     private Warehouse warehouse;
-    private final OrderQueue orderQueue = new OrderQueue();
+    private final OrderQueue orderQueue = new OrderQueue(this);
     private int workDuratuion;
 
 
@@ -70,17 +70,17 @@ public class Pizzeria {
     public void start()  {
 
         readConfig();
+        List<Thread> threads_baker = new ArrayList<>();
+        for (Baker baker : this.bakers) {
+            threads_baker.add(new Thread(baker));
+            threads_baker.getLast().start();
+        }
         List<Thread> threads_courier = new ArrayList<>();
         for (Courier courier : this.couriers) {
             threads_courier.add(new Thread(courier));
             threads_courier.getLast().start();
         }
 
-        List<Thread> threads_baker = new ArrayList<>();
-        for (Baker baker : this.bakers) {
-            threads_baker.add(new Thread(baker));
-            threads_baker.getLast().start();
-        }
 
         long startTime = System.currentTimeMillis();
 
@@ -98,6 +98,9 @@ public class Pizzeria {
             idOrder++;
         }
         this.working = false;
+        synchronized (orderQueue) {
+            orderQueue.notifyAll();
+        }
 
 
         for (Thread thread : threads_baker) {
@@ -116,7 +119,6 @@ public class Pizzeria {
             }
         }
 
-        System.out.print("ВВВ");
     }
 
 

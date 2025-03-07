@@ -69,6 +69,9 @@ public class Courier implements Runnable {
             throw new RuntimeException(e);
         }
         for (Order order : load) {
+            if (order == null) {
+                continue;
+            }
             System.out.println("Заказ " + order.getId() + " Доставлен");
         }
     }
