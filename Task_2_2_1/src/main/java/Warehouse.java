@@ -9,15 +9,32 @@ public class Warehouse {
     public Warehouse(int capacity) {
         this.capacity = capacity;
     }
-    public synchronized boolean tryadd(Order order) {
-        if (capacity == orders.size()) {
-            return false;
+    public synchronized void add(Order order) {
+        while (capacity == orders.size()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         orders.add(order);
-        return true;
+        notifyAll();
     }
     public synchronized Order remove() {
-        notify();
-        return orders.poll();
+        while (orders.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Order order = orders.poll();
+        notifyAll();
+        return order;
+
+    }
+
+    public synchronized int size() {
+        return orders.size();
     }
 }

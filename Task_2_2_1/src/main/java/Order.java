@@ -1,7 +1,10 @@
 import lombok.Getter;
 
+/**
+ * Class for order.
+ */
+@Getter
 public class Order {
-    @Getter
     private final int id;
 
     public Order(int id) {

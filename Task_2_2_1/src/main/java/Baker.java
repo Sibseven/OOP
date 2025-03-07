@@ -1,46 +1,61 @@
 import static java.lang.Thread.sleep;
 
+/**
+ * Baker class.
+ */
 public class Baker implements Runnable {
     private int id;
     private int speed;
     private final Warehouse wh;
     private final OrderQueue orderQueue;
-    private boolean running;
+    private final Pizzeria boss;
 
-    public Baker(int id, int speed, Warehouse wh, OrderQueue orderQueue) {
+    /**
+     * Default constructor.
+     *
+     * @param id - id of baker
+     *
+     * @param speed - milliseconds to complete one order
+     *
+     * @param wh - place to store ready pizzas
+     *
+     * @param orderQueue - queue to take orders from
+     *
+     * @param boss - pizzeria
+     */
+    public Baker(int id, int speed, Warehouse wh, OrderQueue orderQueue, Pizzeria boss) {
         this.id = id;
         this.speed = speed;
         this.wh = wh;
         this.orderQueue = orderQueue;
+        this.boss = boss;
     }
+
     @Override
     public void run() {
-        while (running) {
-            try {
-                Order order = orderQueue.remove();
-                if (order == null) {
-                    synchronized (orderQueue) {
-                        orderQueue.wait();
-                    }
-                    continue;
-                }
-
-                bake(order);
-
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
+        while (boss.isWorking()) {
+            Order order = orderQueue.remove();
+            bake(order);
+        }
+        while (orderQueue.size() > 0) {
+            Order order = orderQueue.remove();
+            bake(order);
         }
     }
 
-    private void bake(Order order) throws InterruptedException {
-        sleep(speed);
-        synchronized (wh) {
-            while (!wh.tryadd(order)) {
-                wh.wait();
-            }
-            wh.notifyAll();
+
+    /**
+     * Method that imitates baking via sleep, then adds ready order to warehouse.
+     *
+     * @param order - order to bake
+     */
+    private void bake(Order order)  {
+        try {
+            sleep(speed);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+        wh.add(order);
+        System.out.println("Заказ " + order.getId() + " испечен");
     }
 }
