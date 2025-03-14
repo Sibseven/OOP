@@ -3,7 +3,7 @@ import java.util.Queue;
 
 public class Warehouse {
     private final Queue<Order> orders = new LinkedList<>();
-    private int capacity;
+    private final int capacity;
 
 
     public Warehouse(int capacity) {
@@ -14,6 +14,7 @@ public class Warehouse {
             try {
                 wait();
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
         }

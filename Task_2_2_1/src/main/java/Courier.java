@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Courier class.
  */
 public class Courier implements Runnable {
-    private int id;
-    private int capacity;
-    private Warehouse wh;
+    private final int id;
+    private final int capacity;
+    private final Warehouse wh;
     private final Pizzeria boss;
 
 

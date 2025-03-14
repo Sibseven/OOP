@@ -11,5 +11,22 @@ public class PizzeriaConfig {
     private int storage_capacity;
     private int working_time;
 
+
+    /**
+     * Class for reading baker from json.
+     */
+    @Getter
+    public static class BakerConfig {
+        private int id;
+        private int speed;
+    }
+    /**
+     * Class for reading courier info form json.
+     */
+    @Getter
+    public static class CourierConfig {
+        private int id;
+        private int capacity;
+    }
 }
 

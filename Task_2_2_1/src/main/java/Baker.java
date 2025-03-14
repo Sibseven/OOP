@@ -4,8 +4,8 @@ import static java.lang.Thread.sleep;
  * Baker class.
  */
 public class Baker implements Runnable {
-    private int id;
-    private int speed;
+    private final int id;
+    private final int speed;
     private final Warehouse wh;
     private final OrderQueue orderQueue;
     private final Pizzeria boss;
@@ -51,7 +51,7 @@ public class Baker implements Runnable {
      *
      * @param order - order to bake
      */
-    private void bake(Order order)  {
+    private void bake(Order order) {
         if (order == null) {
             return;
         }

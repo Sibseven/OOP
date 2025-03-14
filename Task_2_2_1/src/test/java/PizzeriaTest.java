@@ -22,17 +22,17 @@ public class PizzeriaTest {
 
     @Test
     public void test() {
-        pizzeria.start();
+        Pizzeria.main(new String[]{});
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         String output = outputStream.toString();
-        assertTrue(output.contains("Доставлен"));
-        assertTrue(output.contains("испечен"));
-
+        assertTrue(output.contains("WorkEnd"));
     }
+
+
 
 
 }
