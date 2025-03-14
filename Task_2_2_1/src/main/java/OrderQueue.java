@@ -30,7 +30,7 @@ public class OrderQueue {
     public synchronized Order remove() {
         while (orders.isEmpty() && pizzeria.isWorking()) {
             try {
-                wait();
+                wait(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

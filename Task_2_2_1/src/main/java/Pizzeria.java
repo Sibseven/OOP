@@ -53,7 +53,7 @@ public class Pizzeria {
             throw new RuntimeException(e);
         }
         int storageCapacity = pc.getStorage_capacity();
-        this.warehouse = new Warehouse(storageCapacity);
+        this.warehouse = new Warehouse(storageCapacity, this);
         for (PizzeriaConfig.CourierConfig courierConfig : pc.getCouriers()) {
             this.couriers.add(new Courier(warehouse, courierConfig.getCapacity(), this, courierConfig.getId()));
         }

@@ -4,10 +4,11 @@ import java.util.Queue;
 public class Warehouse {
     private final Queue<Order> orders = new LinkedList<>();
     private final int capacity;
+    private final Pizzeria pizzeria;
 
-
-    public Warehouse(int capacity) {
+    public Warehouse(int capacity, Pizzeria pizzeria) {
         this.capacity = capacity;
+        this.pizzeria = pizzeria;
     }
     public synchronized void add(Order order) {
         while (capacity == orders.size()) {
@@ -22,9 +23,9 @@ public class Warehouse {
         notifyAll();
     }
     public synchronized Order remove() {
-        while (orders.isEmpty()) {
+        while (orders.isEmpty() && pizzeria.isWorking()) {
             try {
-                wait();
+                wait(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

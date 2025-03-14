@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class WarehouseTest {
     @Test
     public void limitAddTest() throws InterruptedException {
-        Warehouse warehouse = new Warehouse(1);
+        Warehouse warehouse = new Warehouse(1, new Pizzeria());
         Thread producer1 = new Thread(() -> {
             warehouse.add(new Order(1));
             System.out.println("Order 1 added by " + Thread.currentThread().getName());
@@ -45,7 +45,7 @@ public class WarehouseTest {
 
     @Test
     public void testAddInterruptedException() throws InterruptedException {
-        Warehouse warehouse = new Warehouse(1);
+        Warehouse warehouse = new Warehouse(1, new Pizzeria());
         warehouse.add(new Order(1));
         Thread producer = new Thread(() -> {
             warehouse.add(new Order(2));
