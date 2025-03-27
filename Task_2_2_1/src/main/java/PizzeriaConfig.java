@@ -8,8 +8,8 @@ import lombok.Getter;
 public class PizzeriaConfig {
     private List<BakerConfig> bakers;
     private List<CourierConfig> couriers;
-    private int storage_capacity;
-    private int working_time;
+    private int storageCapacity;
+    private int workingTime;
 
 
     /**
@@ -20,6 +20,7 @@ public class PizzeriaConfig {
         private int id;
         private int speed;
     }
+
     /**
      * Class for reading courier info form json.
      */

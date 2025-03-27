@@ -52,15 +52,17 @@ public class Pizzeria {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        int storageCapacity = pc.getStorage_capacity();
+        int storageCapacity = pc.getStorageCapacity();
         this.warehouse = new Warehouse(storageCapacity, this);
         for (PizzeriaConfig.CourierConfig courierConfig : pc.getCouriers()) {
-            this.couriers.add(new Courier(warehouse, courierConfig.getCapacity(), this, courierConfig.getId()));
+            this.couriers.add(new Courier(warehouse, courierConfig.getCapacity(),
+                        this, courierConfig.getId()));
         }
         for (PizzeriaConfig.BakerConfig bakerConfig : pc.getBakers()) {
-            this.bakers.add(new Baker(bakerConfig.getId(), bakerConfig.getSpeed(), warehouse, orderQueue, this));
+            this.bakers.add(new Baker(bakerConfig.getId(), bakerConfig.getSpeed(),
+                            warehouse, orderQueue, this));
         }
-        this.workDuratuion = pc.getWorking_time();
+        this.workDuratuion = pc.getWorkingTime();
     }
 
     /**
@@ -70,15 +72,15 @@ public class Pizzeria {
     public void start() throws InterruptedException {
 
         readConfig();
-        List<Thread> threads_baker = new ArrayList<>();
+        List<Thread> threadsBaker = new ArrayList<>();
         for (Baker baker : this.bakers) {
-            threads_baker.add(new Thread(baker));
-            threads_baker.getLast().start();
+            threadsBaker.add(new Thread(baker));
+            threadsBaker.getLast().start();
         }
-        List<Thread> threads_courier = new ArrayList<>();
+        List<Thread> threadsCourier = new ArrayList<>();
         for (Courier courier : this.couriers) {
-            threads_courier.add(new Thread(courier));
-            threads_courier.getLast().start();
+            threadsCourier.add(new Thread(courier));
+            threadsCourier.getLast().start();
         }
         Thread.sleep(workDuratuion);
         this.working = false;
@@ -87,11 +89,11 @@ public class Pizzeria {
         }
 
 
-        for (Thread thread : threads_baker) {
+        for (Thread thread : threadsBaker) {
             thread.join();
         }
 
-        for (Thread thread : threads_courier) {
+        for (Thread thread : threadsCourier) {
             thread.join();
         }
         System.out.println("WorkEnd");

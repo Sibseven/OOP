@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Class for generating orders.
  */
-public class OrderGenerator implements Runnable{
+public class OrderGenerator implements Runnable {
     Pizzeria pizzeria;
     int idNow = 1;
 
@@ -25,7 +25,7 @@ public class OrderGenerator implements Runnable{
     }
 
     /**
-     * Method for pceudoRandom order generation
+     * Method for pceudoRandom order generation.
      */
     public void generateOrder() {
         Random rand = new Random();
