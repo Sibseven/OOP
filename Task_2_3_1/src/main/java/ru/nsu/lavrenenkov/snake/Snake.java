@@ -4,6 +4,7 @@ import java.util.LinkedList;
 public class Snake {
     private final LinkedList<SnakeBody> body;
     private Direction direction;
+    private SnakeBody lastTailPosition = null;
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
@@ -36,25 +37,25 @@ public class Snake {
 
     public void addBody() {
         SnakeBody newBody = new SnakeBody();
-        switch (this.direction) {
-            case UP:
-                newBody.setX(body.getFirst().getX());
-                newBody.setY(body.getFirst().getY() - 1);
-                break;
-            case DOWN:
-                newBody.setX(body.getFirst().getX());
-                newBody.setY(body.getFirst().getY() + 1); //два раза наоборот так как y растет сверху вниз + новый элемент должен появляться в хваосте
-                break;
-            case LEFT:
-                newBody.setX(body.getFirst().getX() - 1);
-                newBody.setY(body.getFirst().getY());
-                break;
-            case RIGHT:
-                newBody.setX(body.getFirst().getX() + 1);
-                newBody.setY(body.getFirst().getY());
-                break;
-        }
-        body.addFirst(newBody);
+//        switch (this.direction) {
+//            case UP:
+//                newBody.setX(body.getFirst().getX());
+//                newBody.setY(body.getFirst().getY() - 1);
+//                break;
+//            case DOWN:
+//                newBody.setX(body.getFirst().getX());
+//                newBody.setY(body.getFirst().getY() + 1); //два раза наоборот так как y растет сверху вниз + новый элемент должен появляться в хваосте
+//                break;
+//            case LEFT:
+//                newBody.setX(body.getFirst().getX() - 1);
+//                newBody.setY(body.getFirst().getY());
+//                break;
+//            case RIGHT:
+//                newBody.setX(body.getFirst().getX() + 1);
+//                newBody.setY(body.getFirst().getY());
+//                break;
+//        }
+        body.addLast(lastTailPosition);
     }
 
     public void move() {
@@ -75,6 +76,7 @@ public class Snake {
                 break;
         }
         SnakeBody tail = body.removeLast();
+        lastTailPosition = new SnakeBody(tail);
         if(body.isEmpty()) {
             tail.setX(tail.getX() + xOffset);
             tail.setY(tail.getY() + yOffset);

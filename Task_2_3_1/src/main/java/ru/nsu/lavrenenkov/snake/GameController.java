@@ -21,11 +21,12 @@ public class GameController {
     private static final int TILE_SIZE = 25;
     private static final int GRID_SIZE = 17;
     private static final int MAX_FOOD = 2;
-    private static final int WIN_SIZE = 3;
+    private static final int WIN_SIZE = 10;
     private List<List<Rectangle>> field;
     private List<Food> foods;
     private Snake snake;
     private boolean isAlive = false;
+    private boolean switched = false;
     Timeline gameCycle;
 
     public GameController() {
@@ -51,19 +52,22 @@ public class GameController {
 
 
     private void handleKeyPress(KeyEvent event) {
-        switch (event.getCode()) {
-            case W:
-                snake.changeDirection(Snake.Direction.UP);
-                break;
-            case S:
-                snake.changeDirection(Snake.Direction.DOWN);
-                break;
-            case A:
-                snake.changeDirection(Snake.Direction.LEFT);
-                break;
-            case D:
-                snake.changeDirection(Snake.Direction.RIGHT);
-                break;
+        if (!switched ) {
+            switch (event.getCode()) {
+                case W:
+                    snake.changeDirection(Snake.Direction.UP);
+                    break;
+                case S:
+                    snake.changeDirection(Snake.Direction.DOWN);
+                    break;
+                case A:
+                    snake.changeDirection(Snake.Direction.LEFT);
+                    break;
+                case D:
+                    snake.changeDirection(Snake.Direction.RIGHT);
+                    break;
+            }
+            switched = true;
         }
     }
 
@@ -86,7 +90,7 @@ public class GameController {
         if(gameCycle != null) {
             gameCycle.stop();
         }
-        gameCycle = new Timeline(new KeyFrame(Duration.seconds(0.7), event -> gameCycleEvent()));
+        gameCycle = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> gameCycleEvent()));
         gameCycle.setCycleCount(Timeline.INDEFINITE);
         gameCycle.play();
     }
@@ -103,6 +107,7 @@ public class GameController {
     if (isAlive) {
         gameBoard.requestFocus();
         snake.move();
+        switched = false;
         checkCollisions();
         if (!isAlive) {
             restart();

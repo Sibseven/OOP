@@ -16,4 +16,12 @@ public class SnakeBody {
     public void setY(int y) {
         Y = y;
     }
+
+    public SnakeBody(SnakeBody snakeBody) {
+        X = snakeBody.getX();
+        Y = snakeBody.getY();
+    }
+    public SnakeBody() {
+
+    }
 }
