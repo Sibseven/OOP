@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<Pane xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ru.nsu.lavrenenkov.snake.GameController"
+      fx:id="gameBoard"
+      prefWidth="510" prefHeight="510"
+      style="-fx-background-color: #000000;">
+</Pane>
